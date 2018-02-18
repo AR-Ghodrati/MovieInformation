@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/SortNames"
+        android:icon="@android:drawable/ic_menu_sort_alphabetically"
+        android:title="مرتب کردن بر اساس نام فیلم" />
+    <item
+        android:id="@+id/SortRank"
+        android:icon="@android:drawable/btn_star"
+        android:title="مرتب کردن بر اساس امتیاز فیلم" />
+    <item
+        android:id="@+id/SortYears"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="مرتب کردن بر اساس سال ساخت" />
+    <item
+        android:id="@+id/SortpeopleRanking"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="مرتب کردن بر اساس تعداد امتیاز" />
+    <item
+        android:id="@+id/sortdir"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="مرتب کردن بر اساس آثار کارگردانان" />
+    <item
+        android:id="@+id/changedata"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="لیست تغییرات فیلم ها  " />
+    <item
+        android:id="@+id/UpdateList"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="بروز رسانی لیست" />
+    <item
+        android:id="@+id/aboutus"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="درباره برنامه" />
+</menu>

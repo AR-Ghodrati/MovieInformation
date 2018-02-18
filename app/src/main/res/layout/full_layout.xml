@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fullrellayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="200dp"
+        android:layout_height="140dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/MovieIMG"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            app:srcCompat="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/f"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linear"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/DirectorMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignBaseline="@+id/textView9"
+            android:layout_alignBottom="@+id/textView9"
+            android:layout_toLeftOf="@+id/textView12"
+            android:layout_toStartOf="@+id/textView12"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/MovieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/YaerMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignEnd="@+id/DirectorMovie"
+            android:layout_alignRight="@+id/DirectorMovie"
+            android:layout_below="@+id/DirectorMovie"
+            android:layout_marginTop="27dp"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/CastMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_above="@+id/IMDBdata"
+            android:layout_toLeftOf="@+id/textView9"
+            android:layout_toStartOf="@+id/textView9"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/IMDBdata"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="23dp"
+            android:lineSpacingExtra="14sp"
+            android:text="dfdfdfdfdfdfdfdfdf"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_light"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/textView11"
+            android:layout_toLeftOf="@+id/Showsmalldata"
+            android:layout_toStartOf="@+id/Showsmalldata" />
+
+        <TextView
+            android:id="@+id/SimpleIMDB"
+            android:layout_width="50dp"
+            android:layout_height="15dp"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignBaseline="@+id/textView8"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_toLeftOf="@+id/textView8"
+            android:layout_toStartOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/IMDBLink"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:autoLink="web"
+            android:clickable="true"
+            android:linksClickable="true"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:textAlignment="viewStart"
+            android:textColorLink="@android:color/holo_blue_dark"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/Showsmalldata"
+            android:layout_width="40dp"
+            android:layout_height="15dp"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/textView7"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_toLeftOf="@+id/textView9"
+            android:layout_toStartOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/SimpleIMDB"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11"
+            android:text="رتبه"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/MovieName"
+            android:layout_marginEnd="63dp"
+            android:layout_marginRight="63dp"
+            android:layout_marginTop="21dp"
+            android:layout_toLeftOf="@+id/Showsmalldata"
+            android:text="امتیاز"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView10"
+            android:layout_alignRight="@+id/textView10"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="34dp"
+            android:text="نام کارگردان"
+            android:textColor="@android:color/background_light"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="سال ساخت"
+            android:textColor="@android:color/background_light"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/YaerMovie"
+            android:layout_alignBottom="@+id/YaerMovie"
+            android:layout_alignRight="@+id/textView11"
+            android:layout_alignEnd="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بازیگران"
+            android:textColor="@android:color/background_light"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="17dp"
+            android:layout_below="@+id/YaerMovie"
+            android:layout_alignRight="@+id/textView12"
+            android:layout_alignEnd="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:layout_marginRight="34dp"
+            android:text="اطلاعات امتیازی"
+            android:textColor="@android:color/background_light"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/IMDBdata"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

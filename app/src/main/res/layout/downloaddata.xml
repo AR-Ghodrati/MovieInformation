@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="لطفا موارد را برای بروز رسانی انتخاب کنید"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <View
+        android:id="@+id/SplitLine_hor1"
+        android:layout_width="match_parent"
+        android:layout_height= "2dp"
+        android:layout_marginTop="45dp"
+        android:textAllCaps="false"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/DownloadDataBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="DownloadDataBTN"
+        android:text="دانلود اطلاعات"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/DownloadPIC"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:id="@+id/DownloadText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/SplitLine_hor1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:checked="false"
+        android:text="بروز رسانی اطلاعات متنی انگلیسی                           "
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="17sp" />
+
+    <CheckBox
+        android:id="@+id/DownloadPIC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DownloadTextFA"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/DownloadTextFA"
+        android:layout_below="@+id/DownloadTextFA"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:text="بروز رسانی   پوستر    فیلم ها                                  "
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="17sp" />
+    <View
+        android:id="@+id/SplitLine_hor3"
+        android:layout_width="match_parent"
+        android:layout_height= "2dp"
+        android:textAllCaps="false"
+        android:layout_alignTop="@+id/textView6"
+        android:background="@color/colorAccent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/DownloadDataBTN"
+        android:layout_marginTop="232dp"
+        />
+
+
+
+    <View
+        android:id="@+id/SplitLine_hor4"
+        android:layout_width="match_parent"
+        android:layout_height= "2dp"
+        android:textAllCaps="false"
+        android:layout_alignTop="@+id/textView6"
+        android:background="@color/colorAccent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/DownloadDataBTN"
+        android:layout_marginTop="320dp"
+        />
+
+    <CheckBox
+        android:id="@+id/DownloadTextFA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/DownloadText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="27dp"
+        android:text="بروز رسانی اطلاعات متنی  فارسی                            "
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_below="@+id/textView23"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="اطلاعات اصلی برنامه از وب سایت ای ام دی بی و اطلاعات فارسی از وب سایت نقد فارسی بروز می شود."
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="توجه :"
+        android:textColor="@android:color/background_light"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/SplitLine_hor4"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5" />
+
+    <TextView
+
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="در صورتی که اطلاعاتی  مانند داستان ،جوایز و ...موجود نبود ،آن اطلاعات در وب سایت وجود نداشته است. "
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView24"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:layout_marginTop="10dp"
+        android:text="پوستر های دریافت شده از سایت نقد فارسی کیفیت بالاتری نسبت به سایت ای ام دی بی دارند."
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp" />
+
+</RelativeLayout>

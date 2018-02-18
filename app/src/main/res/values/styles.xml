@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:typeface">serif</item>
+    </style>
+    <style name="AppTheme1" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/darkgrey</item>
+        <item name="colorPrimaryDark">@color/sky_blue</item>
+        <item name="colorAccent">@color/green_apple</item>
+            <item name="android:typeface">serif</item>
+    </style>
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/darkgrey</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/Switch</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/backgroundSwith</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Color1SwitchStyle">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light"/>
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">12sp</item> <!-- menu item text size-->
+        <item name="android:height">80dp</item><!-- menu item height-->
+    </style>
+
+</resources>

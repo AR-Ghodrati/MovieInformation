@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundSwith">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:background="@color/backgroundunSwith">
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignTop="@+id/textView14"
+            android:layout_marginTop="60dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:text="اطلاعات فیلم"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aboutmovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView21"
+            android:layout_alignRight="@+id/textView21"
+            android:layout_below="@+id/textView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="23dp"
+            android:lineSpacingExtra="3sp"
+            android:text="برنامه اطلاعات فیلم مخصوص کسانی است که علاقمند فیلم های سینمایی هستند و میخواهند همیشه از جدیدترین تغییرات در این زمینه اطلاع داشته باشند."
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/aboutapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/aboutmovie"
+            android:layout_alignLeft="@+id/aboutmovie"
+            android:layout_alignRight="@+id/aboutmovie"
+            android:layout_alignStart="@+id/aboutmovie"
+            android:layout_below="@+id/textView4"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="3sp"
+            android:text="این برنامه با قابلیت بروزرسانی لیست به شما قابلیت داشتن تمامی اطلاعات بروز شده را می دهد. "
+            android:textAlignment="textStart"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/aboutmovie"
+            android:layout_alignLeft="@+id/aboutapp"
+            android:layout_alignRight="@+id/aboutmovie"
+            android:layout_alignStart="@+id/aboutapp"
+            android:layout_below="@+id/aboutapp"
+            android:layout_marginTop="21dp"
+            android:lineSpacingExtra="3sp"
+            android:text="اطلاعات اصلی برنامه از وب سایت ای ام دی بی و اطلاعات فارسی از وب سایت نقد فارسی بروز می شود."
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView13"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignRight="@+id/textView13"
+            android:layout_alignStart="@+id/textView13"
+            android:layout_below="@+id/textView13"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="3sp"
+            android:text="در صورتی که اطلاعاتی  مانند داستان ،جوایز و ...موجود نبود ،آن اطلاعات در وب سایت وجود نداشته است. "
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView15"
+            android:layout_alignRight="@+id/textView15"
+            android:layout_below="@+id/textView15"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="3sp"
+            android:text="پوستر های دریافت شده از سایت نقد فارسی کیفیت بالاتری نسبت به سایت ای ام دی بی دارند."
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView21"
+            android:layout_alignRight="@+id/textView21"
+            android:layout_below="@+id/textView14"
+            android:layout_marginTop="45dp"
+            android:text="برنامه نویسی شده توسط:"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView19"
+            android:layout_alignBottom="@+id/textView19"
+            android:layout_toLeftOf="@+id/textView19"
+            android:layout_toStartOf="@+id/textView19"
+            android:text="علی رضا قدرتی"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView20"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="26dp"
+            android:text="ارائه شده توسط:"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView21"
+            android:layout_alignBottom="@+id/textView21"
+            android:layout_toLeftOf="@+id/textView19"
+            android:layout_toStartOf="@+id/textView19"
+            android:text="@string/ar_studio"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/aboutapp"
+            android:layout_alignLeft="@+id/aboutapp"
+            android:layout_alignRight="@+id/aboutapp"
+            android:layout_alignStart="@+id/aboutapp"
+            android:layout_below="@+id/aboutmovie"
+            android:layout_marginTop="19dp"
+            android:text="این برنامه بر اساس  250  فیلم برتر تاریخ سینما ساخته شده است."
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView21"
+            android:layout_alignRight="@+id/textView21"
+            android:layout_below="@+id/textView21"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="20dp"
+            android:text="در صورت مشاهده مشکل در برنامه آن را  گزارش کنید"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView26"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:onClick="report"
+            android:text="گزارش خطا"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            app:srcCompat="@drawable/icon" />
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
+
+

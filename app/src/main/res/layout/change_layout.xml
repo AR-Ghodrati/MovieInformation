@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/re"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundunSwith"
+    android:minHeight="100dp"
+    android:padding="6dip">
+
+    <ImageView
+        android:id="@+id/iconchange"
+        android:layout_width="55dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/amtiazshow"
+        android:layout_below="@+id/viewyear"
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"
+        android:src="@mipmap/ic_launcher"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/firstLinechange"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/secondLinechange"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/secondLinechange"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginTop="9dip"
+        android:layout_toEndOf="@+id/iconchange"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:text="Example application"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/background_light"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/secondLinechange"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/amtiazchangeicon"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/amtiazchangeicon"
+        android:layout_below="@+id/firstLinechange"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/iconchange"
+        android:maxLines="1"
+        android:text="Description"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/secondLinechange"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="10dp"
+        android:text="رتبه :"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rankghange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rankshow"
+        android:layout_alignTop="@+id/rankshow"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/rankshow"
+        android:layout_toStartOf="@+id/rankshow"
+        android:paddingTop="3dp"
+        android:text="بدون تغییر"
+        android:textColor="@android:color/background_light"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/rankchangeicon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/rankghange"
+        android:layout_alignTop="@+id/rankghange"
+        android:layout_marginRight="3dp"
+        android:layout_toLeftOf="@+id/rankghange"
+        android:layout_toStartOf="@+id/rankghange"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rankchangeicon"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/amtiazshow"
+        android:layout_toRightOf="@+id/amtiazshow"
+        android:text="امتیاز :"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/amtiazchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_alignTop="@+id/textView17"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/amtiazchangeicon"
+        android:layout_toRightOf="@+id/amtiazchangeicon"
+        android:paddingTop="3dp"
+        android:text="بدون تغییر"
+        android:textColor="@android:color/background_light"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/rankshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_marginRight="3dp"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_toStartOf="@+id/textView3"
+        android:text="250"
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/amtiazchangeicon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/amtiazchange"
+        android:layout_alignTop="@+id/amtiazchange"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/iconchange"
+        android:layout_toRightOf="@+id/iconchange"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/amtiazshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView17"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/amtiazchange"
+        android:layout_toRightOf="@+id/amtiazchange"
+        android:text="8.5"
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
+

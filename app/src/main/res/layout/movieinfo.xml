@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundSwith">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="600dp">
+        <View
+            android:id="@+id/SplitLine_hor7"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="45dp"
+            android:layout_alignTop="@+id/DIRname"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/DIRname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginTop="60dp"
+            android:text="sdsdfesfsefewfwefwfewfwfw"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <View
+            android:id="@+id/SplitLine_hor6"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="45dp"
+            android:layout_alignTop="@+id/YEAR"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/YEAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/DIRname"
+            android:layout_alignRight="@+id/DIRname"
+            android:layout_below="@+id/SplitLine_hor7"
+            android:layout_marginTop="45dp"
+            android:text="45545"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold" />
+        <View
+            android:id="@+id/SplitLine_hor5"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="85dp"
+            android:layout_alignTop="@+id/CAST"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/CAST"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="sdsdsdsdsdsdsdssdsdssdsd"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/SplitLine_hor6"
+            android:layout_alignRight="@+id/YEAR"
+            android:layout_alignEnd="@+id/YEAR" />
+        <View
+            android:id="@+id/SplitLine_hor4"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="60dp"
+            android:layout_alignTop="@+id/TIME"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/TIME"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/CAST"
+            android:layout_alignRight="@+id/CAST"
+            android:layout_below="@+id/SplitLine_hor5"
+            android:layout_marginTop="55dp"
+            android:text="0"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <View
+            android:id="@+id/SplitLine_hor2"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="45dp"
+            android:layout_alignTop="@+id/STYLE"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/STYLE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/TIME"
+            android:layout_alignRight="@+id/TIME"
+            android:layout_below="@+id/TIME"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="100dp"
+            android:text="jjjjjj"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/AWARD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/STYLE"
+            android:layout_alignRight="@+id/STYLE"
+            android:layout_below="@+id/textView16"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginBottom="15dp"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="  جوایز فیلم :  "
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/SplitLine_hor2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="13dp"
+            android:layout_marginEnd="13dp" />
+
+        <ImageView
+            android:id="@+id/movietime_notfound_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="invisible"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@drawable/notfound"
+            android:layout_alignTop="@+id/TIME"
+            android:layout_toLeftOf="@+id/imageView15"
+            android:layout_toStartOf="@+id/imageView15" />
+
+        <TextView
+            android:id="@+id/movietime_notfound_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="مدت زمان فیلم یافت نشد"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:layout_alignBottom="@+id/movietime_notfound_icon"
+            android:layout_toLeftOf="@+id/textView16"
+            android:layout_toStartOf="@+id/textView16" />
+
+        <ImageView
+            android:id="@+id/moviestyle_notfound_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/movietime_notfound_icon"
+            android:layout_alignStart="@+id/movietime_notfound_icon"
+            android:layout_alignTop="@+id/STYLE"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound" />
+
+        <TextView
+            android:id="@+id/moviestyle_notfound_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="سبک فیلم یافت نشد"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:layout_alignBottom="@+id/moviestyle_notfound_icon"
+            android:layout_alignRight="@+id/movietime_notfound_text"
+            android:layout_alignEnd="@+id/movietime_notfound_text" />
+
+        <ImageView
+            android:id="@+id/movieaward_notfound_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound"
+            android:layout_alignTop="@+id/AWARD"
+            android:layout_alignLeft="@+id/moviestyle_notfound_icon"
+            android:layout_alignStart="@+id/moviestyle_notfound_icon" />
+
+        <TextView
+            android:id="@+id/movieaward_notfound_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/movieaward_notfound_icon"
+            android:layout_alignEnd="@+id/moviestyle_notfound_text"
+            android:layout_alignRight="@+id/moviestyle_notfound_text"
+            android:text="جوایز فیلم یافت نشد"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/dir"
+            android:layout_above="@+id/SplitLine_hor7"
+            android:layout_alignRight="@+id/textView16"
+            android:layout_alignEnd="@+id/textView16"
+            android:layout_marginBottom="14dp" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/calender"
+            android:layout_below="@+id/SplitLine_hor7"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/imageView11"
+            android:layout_alignStart="@+id/imageView11" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/cast"
+            android:layout_above="@+id/SplitLine_hor5"
+            android:layout_alignLeft="@+id/imageView12"
+            android:layout_alignStart="@+id/imageView12" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/time"
+            android:layout_above="@+id/movietime_notfound_icon"
+            android:layout_alignLeft="@+id/imageView14"
+            android:layout_alignStart="@+id/imageView14"
+            android:layout_marginBottom="10dp" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/style"
+            android:layout_above="@+id/SplitLine_hor2"
+            android:layout_alignRight="@+id/textView16"
+            android:layout_alignEnd="@+id/textView16"
+            android:layout_marginBottom="12dp" />
+
+        <ImageView
+            android:id="@+id/awardpic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/imageView16"
+            android:layout_alignStart="@+id/imageView16"
+            android:layout_below="@+id/SplitLine_hor2"
+            android:layout_marginTop="13dp"
+            app:srcCompat="@drawable/award" />
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#322d2b</color>
+    <color name="colorPrimaryDark">#383f4d</color>
+    <color name="colorAccent">#635555</color>
+    <color name="Switch">#fffefe</color>
+    <color name="darkgrey">#8f350f</color>
+    <color name="backgroundSwith">#382f2f</color>
+    <color name="backgroundunSwith">#3d322c</color>
+    <color name="welcome_text_color">#FF0000</color>
+    <color name="sky_blue">#6698FF</color>
+    <color name="green_apple">#629632</color>
+
+</resources>

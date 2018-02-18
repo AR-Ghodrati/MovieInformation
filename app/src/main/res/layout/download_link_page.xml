@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="1500dp"
+    android:background="@color/backgroundSwith">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/backgroundSwith">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="48dp"
+            app:srcCompat="@drawable/hd" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView3"
+            android:layout_marginBottom="14dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_toLeftOf="@+id/imageView3"
+            android:layout_toStartOf="@+id/imageView3"
+            android:text="دانلود با کیفیت اچ دی"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/Download_hd_link"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textView27"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="9dp"
+            android:text="دانلود"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignTop="@+id/cunterofCount"
+            android:layout_marginTop="170dp"
+            android:background="@color/colorAccent" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignTop="@+id/cunterofCount"
+            android:layout_marginTop="340dp"
+            android:background="@color/colorAccent" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignEnd="@+id/imageView3"
+            android:layout_alignRight="@+id/imageView3"
+            android:layout_below="@+id/view"
+            android:layout_marginTop="32dp"
+            app:srcCompat="@drawable/fullhd" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView27"
+            android:layout_alignRight="@+id/textView27"
+            android:layout_alignTop="@+id/imageView6"
+            android:layout_marginTop="21dp"
+            android:text="دانلود با کیفیت فول اچ دی"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/Download_fhd_link"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/Download_hd_link"
+            android:layout_alignStart="@+id/Download_hd_link"
+            android:layout_below="@+id/textView28"
+            android:layout_marginTop="20dp"
+            android:text="دانلود"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignEnd="@+id/imageView6"
+            android:layout_alignRight="@+id/imageView6"
+            android:layout_below="@+id/view3"
+            android:layout_marginTop="31dp"
+            app:srcCompat="@drawable/subtitle" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView28"
+            android:layout_alignRight="@+id/textView28"
+            android:layout_alignTop="@+id/imageView7"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="20dp"
+            android:text="دانلود زیر نویس"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/Download_subtitle_link"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/imageView7"
+            android:layout_centerHorizontal="true"
+            android:text="دانلود"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/notfound_hd"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignTop="@+id/Download_hd_link"
+            android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@+id/imageView3"
+            android:layout_toStartOf="@+id/imageView3"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound" />
+
+        <TextView
+            android:id="@+id/notfound_hd_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Download_hd_link"
+            android:layout_alignBottom="@+id/Download_hd_link"
+            android:layout_alignEnd="@+id/textView29"
+            android:layout_alignRight="@+id/textView29"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="فیلم با این کیفیت یافت نشد"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/notfound_fhd"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignBottom="@+id/Download_fhd_link"
+            android:layout_alignLeft="@+id/notfound_hd"
+            android:layout_alignStart="@+id/notfound_hd"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound" />
+
+        <TextView
+            android:id="@+id/notfound_fhd_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/notfound_hd_text"
+            android:layout_alignStart="@+id/notfound_hd_text"
+            android:layout_alignTop="@+id/notfound_fhd"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:text="فیلم با این کیفیت یافت نشد"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/notfound_subtitle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound"
+            android:layout_alignBottom="@+id/Download_subtitle_link"
+            android:layout_alignLeft="@+id/notfound_fhd"
+            android:layout_alignStart="@+id/notfound_fhd" />
+
+        <TextView
+            android:id="@+id/notfound_subtitle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="زیر نویس برای این فیلم یافت نشد"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
+            android:visibility="invisible"
+            android:layout_marginTop="7dp"
+            android:layout_alignTop="@+id/notfound_subtitle"
+            android:layout_alignRight="@+id/notfound_fhd_text"
+            android:layout_alignEnd="@+id/notfound_fhd_text" />
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

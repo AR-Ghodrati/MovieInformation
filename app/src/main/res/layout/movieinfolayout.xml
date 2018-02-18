@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/moviedata"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundSwith"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ar.movieinformation.fullmovieinfo">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/Star"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="64dp"
+            android:layout_toLeftOf="@+id/textView30"
+            android:layout_toStartOf="@+id/textView30"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/RankIcon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="38dp"
+            android:layout_marginStart="38dp"
+            android:adjustViewBounds="false"
+            app:srcCompat="@drawable/rank"
+            android:layout_alignBottom="@+id/Star"
+            android:layout_alignLeft="@+id/cunterofCount"
+            android:layout_alignStart="@+id/cunterofCount" />
+
+        <TextView
+            android:id="@+id/SimpleIMDB"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_alignBottom="@+id/Star"
+            android:layout_alignLeft="@+id/Star"
+            android:layout_alignStart="@+id/Star"
+            android:text="9.2"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Showsmalldata"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:text="156"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/RankIcon"
+            android:layout_alignLeft="@+id/RankIcon"
+            android:layout_alignStart="@+id/RankIcon" />
+        <View
+            android:id="@+id/spilit"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="80dp"
+            android:layout_alignTop="@+id/SimpleIMDB"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/cunterofCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spilit"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="70dp"
+            android:text=""
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp" />
+        <View
+            android:id="@+id/spilit1"
+            android:layout_width="match_parent"
+            android:layout_height= "2dp"
+            android:layout_marginTop="50dp"
+            android:layout_alignTop="@+id/cunterofCount"
+            android:background="@color/colorAccent" />
+        <TextView
+            android:id="@+id/IMDBlink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cunterofCount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="110dp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textColor="@android:color/background_light"
+            android:textColorLink="@android:color/holo_blue_dark"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/userrating"
+            android:layout_below="@+id/spilit"
+            android:layout_alignRight="@+id/cunterofCount"
+            android:layout_alignEnd="@+id/cunterofCount"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:srcCompat="@drawable/link"
+            android:layout_below="@+id/spilit1"
+            android:layout_alignRight="@+id/IMDBlink"
+            android:layout_alignEnd="@+id/IMDBlink"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/RankIcon"
+            android:layout_alignEnd="@+id/imageView4"
+            android:layout_alignRight="@+id/imageView4"
+            android:layout_marginBottom="10dp"
+            android:text="امتیاز فیلم "
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="رتبه فیلم "
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/textView30"
+            android:layout_alignBottom="@+id/textView30"
+            android:layout_toRightOf="@+id/RankIcon"
+            android:layout_toEndOf="@+id/RankIcon" />
+        <View
+            android:layout_width="2dp"
+            android:layout_height="145dp"
+            android:layout_marginLeft="191dp"
+            android:background="@color/colorAccent" />
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
+

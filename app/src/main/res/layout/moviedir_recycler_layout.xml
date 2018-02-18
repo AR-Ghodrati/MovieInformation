@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+    android:background="@color/backgroundunSwith"
+    android:minHeight="100dp"
+    android:padding="6dip">
+
+    <ImageView
+        android:id="@+id/icondir"
+        android:layout_width="55dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="6dip"
+        android:contentDescription=""
+        android:src="@drawable/icon"
+        android:visibility="visible"
+        app:srcCompat="@drawable/icon" />
+
+    <ImageView
+        android:id="@+id/icondir2"
+        android:layout_width="55dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/icondir"
+        android:layout_toRightOf="@+id/icondir"
+        android:visibility="visible"
+        app:srcCompat="@drawable/icon" />
+
+    <ImageView
+        android:id="@+id/icondir3"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/imageView10"
+        android:layout_alignEnd="@+id/icondir2"
+        android:layout_alignRight="@+id/icondir2"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:visibility="visible"
+        app:srcCompat="@drawable/icon" />
+
+    <TextView
+        android:id="@+id/firstLinedir"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginLeft="70dip"
+        android:layout_marginTop="6dip"
+
+        android:layout_toRightOf="@id/icondir"
+        android:gravity="center_vertical"
+        android:text="Example application"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/secondLinedir"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        android:layout_alignLeft="@+id/firstLinedir"
+        android:layout_alignStart="@+id/firstLinedir"
+        android:layout_below="@+id/firstLinedir"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="13dp"
+        android:ellipsize="marquee"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/star"
+        android:layout_below="@+id/secondLinedir"
+        android:layout_alignLeft="@+id/firstLinedir"
+        android:layout_alignStart="@+id/firstLinedir" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:text="میانگین امتیاز فیلم ها"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/icondir2"
+        android:layout_toRightOf="@+id/imageView10"
+        android:layout_toEndOf="@+id/imageView10" />
+
+    <TextView
+        android:id="@+id/avemovierank"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/imageView10"
+        android:layout_alignLeft="@+id/imageView10"
+        android:layout_alignStart="@+id/imageView10"
+        android:text="8.5"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

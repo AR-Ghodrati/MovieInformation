@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/backgroundSwith"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorAccent"
+        android:textAllCaps="false" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/fontsize"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorAccent"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="29dp"
+        android:text="تنظیمات"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView32"
+        android:layout_alignRight="@+id/textView32"
+        android:layout_below="@+id/view4"
+        android:layout_marginTop="27dp"
+        android:text="تنظیمات متنی"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/selectfonts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_below="@+id/textView33"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView33"
+        android:layout_alignRight="@+id/textView33"
+        android:layout_below="@+id/textView33"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
+        android:text="فونت اطلاعات متنی"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView34"
+        android:layout_alignRight="@+id/textView34"
+        android:layout_below="@+id/selectfonts"
+        android:layout_marginTop="27dp"
+        android:text="اندازه فونت  اطلاعات متنی"
+        android:textColor="@android:color/white" />
+
+    <Spinner
+        android:id="@+id/fontsize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView35"
+        android:layout_marginTop="29dp" />
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="تنظیمات ظاهری"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/view5"
+        android:layout_alignRight="@+id/textView33"
+        android:layout_alignEnd="@+id/textView33" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView35"
+        android:layout_alignRight="@+id/textView35"
+        android:layout_below="@+id/textView36"
+        android:layout_marginTop="21dp"
+        android:text="تم برنامه"
+        android:textColor="@android:color/white" />
+
+    <Spinner
+        android:id="@+id/apptheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView37"
+        android:layout_marginTop="19dp" />
+
+</RelativeLayout>

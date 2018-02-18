@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/poster">
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="217dp"
+        android:text="اطلاعات فیلم"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/textView25"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="88dp"
+        android:elevation="0dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:srcCompat="@drawable/icon" />
+
+    <Button
+        android:id="@+id/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView25"
+        android:layout_alignLeft="@+id/textView25"
+        android:layout_alignRight="@+id/textView25"
+        android:layout_alignStart="@+id/textView25"
+        android:layout_below="@+id/textView25"
+        android:layout_marginTop="102dp"
+        android:onClick="enter"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:text="ورود به برنامه"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

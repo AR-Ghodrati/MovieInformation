@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ar.movieinformation">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="false"
+        android:screenOrientation="portrait"
+        android:icon="@mipmap/ic_launcher"
+        android:label="اطلاعات فیلم"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="true">
+        <activity android:name=".FullScreenImageActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ShowMovieLIst" android:screenOrientation="portrait" />
+        <activity android:name=".aboutus_myket" android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.APP_ERROR" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity
+            android:name=".Setting"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ShowFullInfo" android:screenOrientation="portrait" />
+        <activity android:name=".DownloadData" android:screenOrientation="portrait" />
+        <activity android:name=".firstlayout" android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+
+            android:screenOrientation="portrait"
+            android:name=".movie_list"
+            android:label="لیست فیلم ها"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:targetApi="jelly_bean" >
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".activity_that_handles_the_search" />
+
+        <intent-filter>
+            <action android:name="android.intent.action.SEARCH" />
+        </intent-filter>
+        </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".fullmovieinfo"
+            android:label="@string/title_activity_fullmovieinfo"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>
