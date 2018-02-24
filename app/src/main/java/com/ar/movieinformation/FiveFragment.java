@@ -30,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ar.movieinformation.OMDB.Model.ShortPlot;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -328,14 +330,16 @@ public class FiveFragment extends Fragment {
         }
     }
 
-    public static FiveFragment setdataandshow(String download_hd_link,String download_fhd_link,String download_subtitle_link,boolean Isdobled ) {
+    public static FiveFragment setdataandshow(ShortPlot plot ) {
 
         FiveFragment f = new FiveFragment();
         Bundle b = new Bundle();
-        b.putString("download_hd_link",download_hd_link);
-        b.putString("download_fhd_link",download_fhd_link);
-        b.putString("download_subtitle_link",download_subtitle_link);
-        b.putBoolean("Isdobled",Isdobled);
+        if(plot.getDownloadLinks().size()>0)
+        b.putString("download_hd_link",plot.getDownloadLinks().get(0));
+        if(plot.getDownloadLinks().size()>1)
+        b.putString("download_fhd_link",plot.getDownloadLinks().get(1));
+        b.putString("download_subtitle_link",plot.getSubTitle());
+        b.putBoolean("Isdobled",plot.isDubled());
         f.setArguments(b);
         return f;
     }

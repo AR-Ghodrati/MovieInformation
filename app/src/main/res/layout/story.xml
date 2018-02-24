@@ -1,25 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Storylayout"
     android:layout_width="match_parent"
-    android:layout_height="1500dp"
+    android:layout_height="match_parent"
     android:background="@color/backgroundSwith"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ar.movieinformation.fullmovieinfo">
+    >
 
-    <TextView
-
-        android:id="@+id/Storytext"
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/Storylayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:lineSpacingExtra="15sp"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-</android.support.v4.widget.NestedScrollView>
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.ar.movieinformation.fullmovieinfo">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/EnStoryBorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/EnStoryPic"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="30dp"
+                    app:srcCompat="@drawable/enlang" />
+
+                <TextView
+
+                    android:id="@+id/EnStorytext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/EnStoryPic"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingExtra="15sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+               android:layout_below="@+id/EnStoryBorder"
+                android:background="@color/colorAccent" />
+            <RelativeLayout
+                android:id="@+id/faStoryBorder"
+                android:layout_below="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/FaStoryPic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="30dp"
+                    app:srcCompat="@drawable/googletranslate" />
+
+                <TextView
+
+                    android:id="@+id/FaStorytext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/FaStoryPic"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingExtra="15sp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
+

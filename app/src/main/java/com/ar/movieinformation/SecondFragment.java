@@ -10,41 +10,64 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ar.movieinformation.OMDB.Model.ShortPlot;
+import com.squareup.picasso.Picasso;
+
 public class SecondFragment extends Fragment {
+    RelativeLayout EnStoryBorder,faStoryBorder;
+    ImageView FaStoryPic;
+    TextView EnStorytext,FaStorytext;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        String storystring=getArguments().getString("story");
-        if (storystring == null) {
-            View v = inflater.inflate(R.layout.notfound_layout, container, false);
-            TextView story=(TextView)v.findViewById(R.id.notfound_text);
-            storystring = "داستان فیلم یافت نشد";
-            story.setText(storystring);
-            return v;
-        }
-        else {
-            if(storystring.length()>10) {
+
+
+        String EnStory=getArguments().getString("EnStory");
+        String FaStory=getArguments().getString("FaStory");
+        boolean IsTranslated=getArguments().getBoolean("IsTranslated");
+
                 View v = inflater.inflate(R.layout.story, container, false);
-                TextView story = (TextView) v.findViewById(R.id.Storytext);
-                story.setText("\n" + storystring.trim() + "...");
-                story.setGravity(Gravity.CENTER);
+                   EnStoryBorder=(RelativeLayout)v.findViewById(R.id.EnStoryBorder);
+                   faStoryBorder=(RelativeLayout)v.findViewById(R.id.faStoryBorder);
+                   FaStoryPic=(ImageView) v.findViewById(R.id.FaStoryPic);
+                   EnStorytext=(TextView) v.findViewById(R.id.EnStorytext);
+                   FaStorytext=(TextView) v.findViewById(R.id.FaStorytext);
+                     if(EnStory==null ||EnStory.equals(""))
+                        EnStoryBorder.setVisibility(View.GONE);
+                    else
+                    {
+                        EnStorytext.setText(EnStory);
+                        EnStorytext.setGravity(Gravity.CENTER);
+                    }
+                    if(FaStory==null ||FaStory.equals(""))
+                        faStoryBorder.setVisibility(View.GONE);
+                    else
+                    {
+                        if(IsTranslated)
+                            FaStoryPic.setImageResource(R.drawable.googletranslate);
+
+                        else Picasso.with(getContext())
+                                .load(R.drawable.logo_nadsfaf)
+                                .transform(new RoundedTransformation(80,5))
+                                .into(FaStoryPic);
+                        FaStorytext.setText(FaStory.trim() + "...");
+
+                        FaStorytext.setGravity(Gravity.CENTER);
+                    }
                 return v;
-            }
-            else {
-                View v = inflater.inflate(R.layout.notfound_layout, container, false);
-                TextView story=(TextView)v.findViewById(R.id.notfound_text);
-                storystring = "داستان فیلم یافت نشد";
-                story.setText(storystring);
-                return v;
-            }
-        }
+
+
     }
-    public static SecondFragment setdataandshow(String story) {
+    public static SecondFragment setdataandshow(ShortPlot movie) {
 
         SecondFragment f = new SecondFragment();
         Bundle b = new Bundle();
-        b.putString("story", story);
+        b.putString("EnStory", movie.getPlot());
+        b.putString("FaStory", movie.getFaPlot());
+        b.putBoolean("IsTranslated",movie.isTranslatedPlot());
         f.setArguments(b);
         return f;
     }

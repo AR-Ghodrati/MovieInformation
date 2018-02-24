@@ -2,7 +2,6 @@ package com.ar.movieinformation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,7 +16,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -30,17 +28,17 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -55,15 +53,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DownloadData extends AppCompatActivity {
     CheckBox Downloadtext, DownloadPIC, DownloadFA;
     ProgressDialog progressDialog;
-    int counter = 0;
-    int counter1 = 0;
-    String checkHTML = "";
     NotificationCompat.Builder builder;
     Notification.Builder buldernoti;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -78,28 +75,28 @@ public class DownloadData extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void DownloadDataBTN(final View view) {
         int W_sd = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int R_sd = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (W_sd == PackageManager.PERMISSION_DENIED && R_sd == PackageManager.PERMISSION_DENIED) {
-            AlertDialog.Builder a=new AlertDialog.Builder(this);
-            a.setTitle("اطلاعات فیلم");
-            a.setCancelable(false);
-            a.setMessage("برای بروزرسانی اطلاعات،برنامه نیاز به دسترسی به خواندن حافظه و اینترنت دارد");
-            a.setPositiveButton(" دسترسی دادن به برنامه", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ActivityCompat.requestPermissions(DownloadData.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET},1);
+                int R_sd = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+                if (W_sd == PackageManager.PERMISSION_DENIED && R_sd == PackageManager.PERMISSION_DENIED) {
+                    AlertDialog.Builder a=new AlertDialog.Builder(this);
+                    a.setTitle("اطلاعات فیلم");
+                    a.setCancelable(false);
+                    a.setMessage("برای بروزرسانی اطلاعات،برنامه نیاز به دسترسی به خواندن حافظه و اینترنت دارد");
+                    a.setPositiveButton(" دسترسی دادن به برنامه", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(DownloadData.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET},1);
+                        }
+                    });
+                    a.show();
                 }
-            });
-            a.show();
-        }
-        else {
-            Downloadtext = (CheckBox) findViewById(R.id.DownloadText);
-            DownloadPIC = (CheckBox) findViewById(R.id.DownloadPIC);
-            DownloadFA = (CheckBox) findViewById(R.id.DownloadTextFA);
+                else {
+                    Downloadtext = (CheckBox) findViewById(R.id.DownloadText);
+                    DownloadPIC = (CheckBox) findViewById(R.id.DownloadPIC);
+                    DownloadFA = (CheckBox) findViewById(R.id.DownloadTextFA);
 
-            if (!checkconectivity())
-                Toast.makeText(getApplicationContext(), "لطفا برای دریافت اطلاعات به اینترنت متصل شوید", Toast.LENGTH_LONG).show();
-            else if (checkconectivity()) {
+                    if (!checkconectivity())
+                        Toast.makeText(getApplicationContext(), "لطفا برای دریافت اطلاعات به اینترنت متصل شوید", Toast.LENGTH_LONG).show();
+                    else if (checkconectivity()) {
                 if (Downloadtext.isChecked()) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("دانلود اطلاعات");
@@ -114,7 +111,9 @@ public class DownloadData extends AppCompatActivity {
                             Intent finishmovielist = new Intent();
                             finishmovielist.setAction("finish_movielist");
                             sendBroadcast(finishmovielist);
-                            SharedPreferences.Editor shared = getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
+
+                           // new prossesondata().execute("http://www.imdb.com/chart/top");
+                           SharedPreferences.Editor shared = getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
                             String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                             SharedPreferences getstatus = getSharedPreferences("movieinfosh", MODE_PRIVATE);
                             Calendar c = Calendar.getInstance();
@@ -145,9 +144,8 @@ public class DownloadData extends AppCompatActivity {
                             Notification notification = buldernoti.getNotification();
                             assert notificationManager != null;
                             notificationManager.notify("Movie app", 0, notification);
-                            new prossesonFarsidata().execute("http://www.naghdefarsi.com/movies/top-movies.html");
+                            new PutDataOnDB().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
                             //new Checkname_other_site().execute("http://m.imdb.com/chart/top");
-                           // new prossesondata().execute("http://www.imdb.com/chart/top");
                         }
                     });
                     builder.setNegativeButton("خیر", (dialog, which) -> Toast.makeText(getApplicationContext(), "برای نمایش لیست فیلم ها باید اطلاعات دریافت شود ", Toast.LENGTH_LONG).show());
@@ -158,69 +156,6 @@ public class DownloadData extends AppCompatActivity {
         }
     }
 
-
-
-   /* private class prossesondata extends AsyncTask<String, String, String> {
-        String Movie_String_data_HTMLsave =null;
-
-        @Override
-        protected String doInBackground(String... url) {
-            final String Top_movie_url = url[0];
-            String datareader = "";
-            int c = 0;
-            try {
-                URL movieurl = new URL(Top_movie_url);
-                HttpURLConnection urlConnection = (HttpURLConnection) movieurl.openConnection();
-                urlConnection.connect();
-                InputStream inputStream = urlConnection.getInputStream();
-                BufferedReader inputMoviedata = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-
-                Movie_String_data_HTMLsave=org.apache.commons.io.IOUtils.toString(inputMoviedata);
-                inputMoviedata.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            if(Movie_String_data_HTMLsave!=null)
-            workonStringDataAndSavetoDataBase(Movie_String_data_HTMLsave);
-        }
-    }
-    */
-
-   /* private class Checkname_other_site extends AsyncTask<String, String, String> {
-        String Movie_String_data_HTMLsave = null;
-
-        @Override
-        protected String doInBackground(String... url) {
-            final String Top_movie_url = url[0];
-            String datareader = "";
-            int c = 0;
-            try {
-                URL movieurl = new URL(Top_movie_url);
-                HttpURLConnection urlConnection = (HttpURLConnection) movieurl.openConnection();
-                urlConnection.connect();
-                InputStream inputStream = urlConnection.getInputStream();
-                BufferedReader inputMoviedata = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                Movie_String_data_HTMLsave=org.apache.commons.io.IOUtils.toString(inputMoviedata);
-                inputMoviedata.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s)
-        {
-            if(Movie_String_data_HTMLsave!=null)
-            checkHTML = Movie_String_data_HTMLsave;
-        }
-    }
-*/
     private String farsi="";
     private class prossesonFarsidata extends AsyncTask<String, String, String> {
         String Movie_String_data_HTMLsave =null;
@@ -301,398 +236,192 @@ public class DownloadData extends AppCompatActivity {
     int AsyncTaskcounter = 0;
     int currnetprogress = 0;
 
+
+
+     int prosses = 0;
+    AlertDialog.Builder Downloadalert;
     @SuppressLint("StaticFieldLeak")
-    private class prossesonPIC extends AsyncTask<String, String, String> {
-        String name;
+    private  class PutDataOnDB extends AsyncTask<Void,Void,Void>
+    {
+
+
+
         @Override
-        protected String doInBackground(String... url) {
-            final String filename = url[0];
-            name=filename;
-            String year=url[1];
-            String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
-            String farsi="naghedfarsi";
-            String googleurl = "https://www.google.com/search?q="+filename.replaceAll(" ","+").trim()+"+"+year+farsi+"&site=imghp&tbs=isz:m&tbm=isch&source=lnt&sa=X&ved=0ahUKEwjrnuy1vJjYAhVBEmMKHUWHCioQpwUIIA&biw=1280&bih=642&dpr=3";
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ContentValues contentValues = new ContentValues();
+            SQLiteDatabase DBTemp;
+            database movieDB = new database(getApplicationContext(), "Movie_db", null, 1);
+            DBTemp = movieDB.getReadableDatabase();
+            database db = new database(getApplicationContext(), "Movie_db", null, 1);
+            SQLiteDatabase temp = db.getReadableDatabase();
+            ContentValues contentValues1 = new ContentValues();
+            ContentValues contentValuesfarsi = new ContentValues();
+            String Movie_Ranks, IMDB_RANK_simples, IMDB_RANK_fulls, enname;
+            Cursor cursor = temp.query("MOVIEDATA", new String[]{"Movie_Rank", "IMDB_RANK_simple", "Movie_year", "Movie_name", "Movie_farsi_name", "MovieDirector_name", "Actors_Actress", "IMDB_RANK_full", "Movie_IMDB_link", "Movie_picture_link"}, null, null, null, null, null);
+            DBTemp.execSQL("delete from " + "MOVIEDATAOLD");
+            cursor.moveToFirst();
+            while (cursor.moveToNext()) {
+                Movie_Ranks = cursor.getString(cursor.getColumnIndex("Movie_Rank"));
+                IMDB_RANK_simples = cursor.getString(cursor.getColumnIndex("IMDB_RANK_simple"));
+                IMDB_RANK_fulls = cursor.getString(cursor.getColumnIndex("IMDB_RANK_full"));
+                enname = cursor.getString(cursor.getColumnIndex("Movie_name"));
+                contentValues1.put("IMDB_RANK_full", IMDB_RANK_fulls);
+                contentValues1.put("IMDB_RANK_simple", IMDB_RANK_simples);
+                contentValues1.put("Movie_Rank", Movie_Ranks);
+                contentValues1.put("Movie_name", enname);
+                contentValuesfarsi.put("Movie_Rank",Movie_Ranks);
+                contentValuesfarsi.put("Movie_name",enname);
+                contentValuesfarsi.put("Movie_farsi_name",cursor.getString(cursor.getColumnIndex("Movie_farsi_name")));
+                temp.insert("MOVIEDATAOLD", null, contentValues1);
+            }
+            temp.close();
+            DBTemp.execSQL("delete from " + "MOVIEDATA");
+            DBTemp.close();
+
+            String NameSave = "";
+            int rank=-1;
+
+            DBTemp = movieDB.getWritableDatabase();
+            int DIRINDEX = 0;
+            final String IMDBKEY="http://www.imdb.com";
+            final Document document;
+            // Downloader(webSiteURL);
             try {
-                Document doc = Jsoup.connect(googleurl).userAgent(userAgent).referrer("https://www.google.com/").get();
-                Elements elements = doc.select("div.rg_meta");
-                JSONObject jsonObject;
-                for (Element element : elements) {
-                    if (element.childNodeSize() > 0) {
-                        jsonObject = (JSONObject) new JSONParser().parse(element.childNode(0).toString());
-                       return (String) jsonObject.get("ou");
+                document = Jsoup.connect("http://www.imdb.com/chart/top").get();
+                for (Element row : document.select("table.chart.full-width tr")) {
+                    Elements a = row.select(".titleColumn a");
+                    Elements Poster = row.select(".posterColumn");
+                    final String poster = Poster.select("img").attr("src").replaceAll("\\._V1_(.*?)\\.jpg", "._V1_UY1024_CR1,50,1024.jpg");
+                    final String MovieLink =a.attr("href");
+                    final String DIRNAME_Casts = a.attr("title");
+                    final String rating = row.select(".imdbRating").text();
+                    final String yeartemp = row.select(".titleColumn span").text().trim();
+                    final String year = yeartemp.replaceAll("[^\\.0123456789]", "");
+                    final String Rating = row.select(".imdbRating strong").attr("title");
+                    String[] DIR_CASTS = DIRNAME_Casts.split(",");
+                    final String DIRNAME = DIR_CASTS[DIRINDEX].trim().replace("(dir.)", "");
+
+                    StringBuilder Casts = new StringBuilder();
+                    for (int i = 1; i < DIR_CASTS.length; i++) {
+                        Casts.append(DIR_CASTS[i].trim());
+                        Casts.append(",");
+                    }
+                    final String CASTS = Casts.toString();
+                    contentValues.put("Movie_name", NameSave);
+                    contentValues.put("Actors_Actress", CASTS);
+                    contentValues.put("IMDB_RANK_full", Rating);
+                    contentValues.put("IMDB_RANK_simple", rating);
+                    contentValues.put("Movie_year", year);
+                    contentValues.put("MovieDirector_name", DIRNAME);
+                    contentValues.put("Movie_Rank",""+rank++);
+                    contentValues.put("Movie_picture_link", poster);
+                    contentValues.put("Movie_IMDB_link",IMDBKEY+ MovieLink);
+                    DBTemp.insert("MOVIEDATA", null, contentValues);
+
+
+
+                    Log.e("Movie_name",NameSave);
+                    Log.e("Actors_Actress",CASTS);
+                    Log.e("IMDB_RANK_simple",rating);
+                    Log.e("IMDB_RANK_full",Rating);
+                    Log.e("Movie_year",year);
+                    Log.e("MovieDirector_name",DIRNAME);
+                    Log.e("Movie_Rank",rank+"");
+                    Log.e("Movie_picture_link",poster);
+                    Log.e("Movie_IMDB_link",IMDBKEY+ MovieLink);
+
+
+
+                }
+                final Document documentName;
+                rank=0;
+                documentName = Jsoup.connect("https://m.imdb.com/chart/top").get();
+                for (Element rowName : documentName.select("div.col-xs-12.col-md-6")) {
+                    String defultName=rowName.select("h4").text();
+                    String[]spilited=defultName.split(" ");
+                    StringBuilder FinalName = new StringBuilder();
+                    if(spilited.length>1) {
+                        for (int i = 1; i < spilited.length - 1; i++) {
+                            FinalName.append(spilited[i]);
+                            FinalName.append(" ");
+                        }
+                        String name = FinalName.toString();
+                        ContentValues contentValues2 = new ContentValues();
+                        contentValues2.put("Movie_name", name);
+                        DBTemp.update("MOVIEDATA", contentValues2, "Movie_Rank=" + (rank++), null);
                     }
                 }
 
-            } catch (IOException e) {
+            } catch (IOException |ArrayIndexOutOfBoundsException |NullPointerException | StringIndexOutOfBoundsException e) {
                 e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(),"خطایی در بروزرسانی رخ داد",Toast.LENGTH_LONG).show();
+                Log.e("PutDBExeption",e.toString());
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            DownloadCoverFromGoogle(s,name);
-            }
-        }
-    private void DownloadCoverFromGoogle(final String url, final String Filename)
-    {
-        counter1++;
-        Toast.makeText(getApplicationContext(),url+" "+Filename+"downloading",Toast.LENGTH_SHORT).show();
-        Picasso.with(getApplicationContext()).load(url).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                try {
-                    FileOutputStream fos = new FileOutputStream(getApplicationContext().getFilesDir().getPath() + "/" + Filename.trim());
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 75, fos);
-                    fos.flush();
-                    fos.close();
-                    Toast.makeText(getApplicationContext(),url+" "+Filename+"downloaded",Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    currnetprogress++;
-                    RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.noti);
-                    contentView.setTextViewText(R.id.status_text, currnetprogress + " از " + AsyncTaskcounter);
-                    contentView.setTextViewText(R.id.titlenoti, "اطلاعات فیلم");
-                    contentView.setImageViewBitmap(R.id.status_icon, BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                            R.mipmap.ic_launcher));
-                    contentView.setTextViewText(R.id.textnoti, "در حال دریافت پوستر ها...");
-                    contentView.setProgressBar(R.id.status_progress, AsyncTaskcounter, currnetprogress, false);
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    Intent intent = new Intent();
-                    PendingIntent pendingIntent = PendingIntent.getActivity(DownloadData.this, 1, intent, 0);
-                    builder.setAutoCancel(false);
-                    //   builder.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                    //         R.mipmap.ic_launcher));
-                    builder.setOngoing(true);
-                    builder.setContentTitle("اطلاعات فیلم");
-                    builder.setSmallIcon(R.mipmap.ic_launcher);
-                    builder.setContentIntent(pendingIntent);
-                    //builder.setCustomBigContentView(contentView);
-                    builder.setCustomContentView(contentView);
-                    builder.build();
-                    Notification notification1 = builder.getNotification();
-                    notificationManager.notify("Movie app", 0, notification1);
-                    if (AsyncTaskcounter == currnetprogress && !checkpic) {
-                        checkpic = true;
-                        // Toast.makeText(getApplicationContext(), counter1+" پوستر جدید دانلود شد ", Toast.LENGTH_SHORT).show();
-                        Notification.Builder builder = new Notification.Builder(getApplicationContext());
-                        builder.setAutoCancel(true);
-                        builder.setOngoing(false);
-                        builder.setSmallIcon(R.mipmap.ic_launcher);
-                        builder.setContentTitle("اطلاعات فیلم");
-                        builder.setContentText("تمام اطلاعات دریافت شد");
-                        builder.setContentIntent(pendingIntent);
-                        builder.setColor(getApplicationContext().getResources()
-                                .getColor(R.color.backgroundunSwith));
-                        builder.build();
-                        Notification notification = builder.getNotification();
-                        notificationManager.notify("Movie app", 0, notification);
-                        Toast.makeText(getApplicationContext(), "پوستر ها دانلود شد", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }
-            }
-            @Override
-            public void onBitmapFailed(Drawable drawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable drawable) {
-
-            }
-        });
-    }
-    int prosses = 0;
-    private void workonStringDataAndSavetoDataBase(String data) {
-        final String finaldata = data;
-        Thread movie_thred = new Thread(new Runnable() {
-            @TargetApi(Build.VERSION_CODES.N)
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void run() {
-                ContentValues contentValues = new ContentValues();
-                SQLiteDatabase DBTemp;
-                database movieDB = new database(getApplicationContext(), "Movie_db", null, 1);
-                DBTemp = movieDB.getReadableDatabase();
-                database db = new database(getApplicationContext(), "Movie_db", null, 1);
-                SQLiteDatabase temp = db.getReadableDatabase();
-                ContentValues contentValues1 = new ContentValues();
-                ContentValues contentValuesfarsi = new ContentValues();
-                String Movie_Ranks, IMDB_RANK_simples, IMDB_RANK_fulls, enname;
-                Cursor cursor = temp.query("MOVIEDATA", new String[]{"Movie_Rank", "IMDB_RANK_simple", "Movie_year", "Movie_name", "Movie_farsi_name", "MovieDirector_name", "Actors_Actress", "IMDB_RANK_full", "Movie_IMDB_link", "Movie_picture_link"}, null, null, null, null, null);
-                DBTemp.execSQL("delete from " + "MOVIEDATAOLD");
-                cursor.moveToFirst();
-                while (cursor.moveToNext()) {
-                    Movie_Ranks = cursor.getString(cursor.getColumnIndex("Movie_Rank"));
-                    IMDB_RANK_simples = cursor.getString(cursor.getColumnIndex("IMDB_RANK_simple"));
-                    IMDB_RANK_fulls = cursor.getString(cursor.getColumnIndex("IMDB_RANK_full"));
-                    enname = cursor.getString(cursor.getColumnIndex("Movie_name"));
-                    contentValues1.put("IMDB_RANK_full", IMDB_RANK_fulls);
-                    contentValues1.put("IMDB_RANK_simple", IMDB_RANK_simples);
-                    contentValues1.put("Movie_Rank", Movie_Ranks);
-                    contentValues1.put("Movie_name", enname);
-                    contentValuesfarsi.put("Movie_Rank",Movie_Ranks);
-                    contentValuesfarsi.put("Movie_name",enname);
-                    contentValuesfarsi.put("Movie_farsi_name",cursor.getString(cursor.getColumnIndex("Movie_farsi_name")));
-                    temp.insert("MOVIEDATAOLD", null, contentValues1);
-                }
-                temp.close();
-                DBTemp.execSQL("delete from " + "MOVIEDATA");
-                DBTemp.close();
-                String FindRank = "<td class=\"titleColumn\">";
-                String FINDyear = "<span class=\"secondaryInfo\">";
-                String Fullimdb = "<td class=\"ratingColumn imdbRating\">\n";
-                String MainTitle = "<td class=\"posterColumn\">";
-                String key = "div class=\"col-xs-12 col-md-6\">\n" +
-                        "    <div class=\"media\">";
-                String ActorsandActress = "", IMDB_RANK_simple = "", IMDB_RANK_full = "", Ranksave = "", Picsave = "", NameSave = "", Yearsave = "", IMDBsave = "", DIRName = "";
-                int pos = 0, EndPos = 0, startpos = 0;
-                DBTemp = movieDB.getWritableDatabase();
-                while (true) {
-                    //NameSave = FINDNAME(FindRank, finaldata, pos, startpos);
-                    Picsave = FINDPIC(MainTitle, finaldata, pos, startpos);
-                    Yearsave = FINDYear(FINDyear, finaldata, pos, startpos);
-                    Ranksave = FINDRANK(FindRank, finaldata, pos, startpos);
-                    DIRName = FINDDIR(FindRank, finaldata, pos, startpos);
-                    IMDBsave = FINDIMDB(MainTitle, finaldata, pos, startpos);
-                    ActorsandActress = FindActorANDActress(FindRank, finaldata, pos, startpos);
-                    IMDB_RANK_full = FINDIMDB_rank_full(Fullimdb, finaldata, pos, startpos);
-                    IMDB_RANK_simple = FINDIMDB_rank_simple(Fullimdb, finaldata, pos, startpos);
-                    contentValues.put("Movie_name", NameSave);
-                    contentValues.put("Actors_Actress", ActorsandActress);
-                    contentValues.put("IMDB_RANK_full", IMDB_RANK_full);
-                    contentValues.put("IMDB_RANK_simple", IMDB_RANK_simple);
-                    contentValues.put("Movie_year", Yearsave);
-                    contentValues.put("MovieDirector_name", DIRName);
-                    contentValues.put("Movie_Rank", Ranksave);
-                    contentValues.put("Movie_picture_link", Picsave);
-                    contentValues.put("Movie_IMDB_link", IMDBsave);
-                    DBTemp.insert("MOVIEDATA", null, contentValues);
-                    // DBTemp.update("MOVIEDATA",contentValues,"Movie_Rank="+(Integer.parseInt(Ranksave)),null);
-                    startpos = finaldata.indexOf(MainTitle, startpos + 1);
-                    progressDialog.setProgress(prosses++);
-                    if (Integer.parseInt(Ranksave) == 250)
-                        break;
-                }
-                int checkpos = 0;
-                String name = "", rank = "";
-                ContentValues contentValues2 = new ContentValues();
-                while (true) {
-                    name = MovieName_otherSite(checkHTML, key, checkpos);
-                    rank = MovieRank_otherSite(checkHTML, key, checkpos);
-                    contentValues2.put("Movie_name", name);
-                    checkpos = checkHTML.indexOf(key, checkpos + 1);
-                    DBTemp.update("MOVIEDATA", contentValues2, "Movie_Rank=" + (rank), null);
-                    if (Integer.parseInt(rank) == 250)
-                        break;
-                }
-                prossesonFarsi(farsi);
-                progressDialog.dismiss();
-                DBTemp.close();
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                builder = new NotificationCompat.Builder(getApplicationContext());
-                Intent intent = new Intent();
-                PendingIntent pendingIntent = PendingIntent.getActivity(DownloadData.this, 1, intent, 0);
-                builder.setAutoCancel(false);
-                builder.setContentTitle("اطلاعات فیلم");
-                builder.setSmallIcon(R.mipmap.ic_launcher);
-                RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.noti);
-                contentView.setImageViewBitmap(R.id.status_icon, BitmapFactory.decodeResource(getApplicationContext().getResources(),
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //new prossesonFarsidata().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"http://www.naghdefarsi.com/movies/top-movies.html");
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            builder = new NotificationCompat.Builder(getApplicationContext());
+            Intent intent = new Intent();
+            PendingIntent pendingIntent = PendingIntent.getActivity(DownloadData.this, 1, intent, 0);
+            builder.setAutoCancel(false);
+            builder.setContentTitle("اطلاعات فیلم");
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+            RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.noti);
+            contentView.setImageViewBitmap(R.id.status_icon, BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                    R.mipmap.ic_launcher));
+            contentView.setTextViewText(R.id.status_text, currnetprogress + " از " + AsyncTaskcounter);
+            contentView.setTextViewText(R.id.titlenoti, "اطلاعات فیلم");
+            contentView.setTextViewText(R.id.textnoti, "در حال دریافت پوستر ها...");
+            contentView.setProgressBar(R.id.status_progress, AsyncTaskcounter, currnetprogress, false);
+            if (DownloadPIC.isChecked()) {
+                builder.setOngoing(true);
+                //   builder.setCustomBigContentView(contentView);
+                builder.setCustomContentView(contentView);
+            } else {
+                builder.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
                         R.mipmap.ic_launcher));
-                contentView.setTextViewText(R.id.status_text, currnetprogress + " از " + AsyncTaskcounter);
-                contentView.setTextViewText(R.id.titlenoti, "اطلاعات فیلم");
-                contentView.setTextViewText(R.id.textnoti, "در حال دریافت پوستر ها...");
-                contentView.setProgressBar(R.id.status_progress, AsyncTaskcounter, currnetprogress, false);
-                if (DownloadPIC.isChecked()) {
-                    builder.setOngoing(true);
-                    //   builder.setCustomBigContentView(contentView);
-                    builder.setCustomContentView(contentView);
-                } else {
-                    builder.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                            R.mipmap.ic_launcher));
-                    builder.setContentTitle("اطلاعات فیلم");
-                    builder.setContentText("اطلاعات دریافت شد");
-                    builder.setOngoing(false);
-                }
-                builder.setContentIntent(pendingIntent);
-                builder.build();
-                Notification notification = builder.getNotification();
-                notificationManager.notify("Movie app", 0, notification);
-                AlertDialog.Builder alert = new AlertDialog.Builder(DownloadData.this);
-                alert.setMessage("اطلاعات متنی دانلود شد");
-                alert.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (DownloadPIC.isChecked()) {
-                            Toast.makeText(getApplicationContext(), "در حال دریافت پوستر ها،لطفا صبر کنید...", Toast.LENGTH_SHORT).show();
-                        }
-                        Intent intent = new Intent(DownloadData.this, movie_list.class);
-                        startActivity(intent);
-                        if (!DownloadPIC.isChecked() && !DownloadFA.isChecked()) {
-                            finish();
-                        }
-                    }
-                });
-                alert.setCancelable(false);
-                alert.show();
-                if (DownloadPIC.isChecked())
-                    ProseseonPICs(1);
-                //if(DownloadFA.isChecked())
+                builder.setContentTitle("اطلاعات فیلم");
+                builder.setContentText("اطلاعات دریافت شد");
+                builder.setOngoing(false);
             }
-        });
-        movie_thred.run();
-    }
+            builder.setContentIntent(pendingIntent);
+            builder.build();
+            Notification notification = builder.getNotification();
+            assert notificationManager != null;
+            notificationManager.notify("Movie app", 0, notification);
+            Downloadalert.setMessage("اطلاعات متنی دانلود شد");
+            Downloadalert.setPositiveButton("باشه", (dialog, which) -> {
+                if (DownloadPIC.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "در حال دریافت پوستر ها،لطفا صبر کنید...", Toast.LENGTH_SHORT).show();
+                }
 
-    private static String FINDRANK(String FindRank, String Maindata, int pos, int Startpos) {
-        String Ranksave = "";
-        pos = Maindata.indexOf(FindRank, Startpos);
-        String temp = Maindata.substring(pos + FindRank.length(), pos + FindRank.length() + 16);
-        for (int i = 0; i < temp.length(); i++)
-            if ((temp.charAt(i) <= '9') && (temp.charAt(i) >= '0'))
-                Ranksave += temp.charAt(i);
-        return Ranksave;
-    }
-
-    private static String FINDIMDB_rank_full(String FindRank, String Maindata, int pos, int Startpos) {
-        String Ranksave = "";
-        pos = Maindata.indexOf(FindRank, Startpos);
-        String temp = Maindata.substring(pos + FindRank.length() + 27, pos + FindRank.length() + 70);
-        for (int i = 0; i < temp.length(); i++)
-            if ((temp.charAt(i) != '"'))
-                Ranksave += temp.charAt(i);
-            else
-                break;
-        return Ranksave;
-    }
-
-    private static String FINDIMDB_rank_simple(String FindRank, String Maindata, int pos, int Startpos) {
-        String Ranksave = "";
-        pos = Maindata.indexOf(FindRank, Startpos);
-        String temp = Maindata.substring(pos + FindRank.length() + 27, pos + FindRank.length() + 30);
-        for (int i = 0; i < temp.length(); i++)
-            if ((temp.charAt(i) != '"'))
-                Ranksave += temp.charAt(i);
-            else
-                break;
-        return Ranksave;
-    }
-
-    private static String FINDPIC(String FindPic, String Maindata, int pos, int Startpos) {
-        String Picsave = "";
-        pos = Maindata.indexOf(FindPic, Startpos);
-        String temp = Maindata.substring(pos + FindPic.length() + 400, pos + FindPic.length() + 600);
-        int POS = temp.indexOf("img src=\"");
-        for (int i = POS + 9; i < temp.length(); i++)
-            if (temp.charAt(i) != '"')
-                Picsave += temp.charAt(i);
-            else
-                break;
-        return Picsave;
-    }
-
-    private static String MovieName_otherSite(String main, String key, int pos) {
-        int Pos = main.indexOf(key, pos);
-        String name = "";
-        String temp = main.substring(Pos + key.length() + 700, Pos + key.length() + 1000);
-        String findname = "<span class=\"unbold\">";
-        String temp2 = temp.substring(temp.indexOf(findname) + findname.length(), temp.indexOf(findname) + findname.length() + 60);
-        for (int i = temp2.indexOf("</span>") + 8; i < temp2.length(); i++) {
-            if (temp2.charAt(i) != '<')
-                name += temp2.charAt(i);
-            else
-                break;
+                dialog.dismiss();
+                Intent intent1 = new Intent(DownloadData.this, movie_list.class);
+                startActivity(intent1);
+                if (!DownloadPIC.isChecked() && !DownloadFA.isChecked()) {
+                    finish();
+                }
+            });
+            Downloadalert.setCancelable(false);
+            Downloadalert.show();
+            if (DownloadPIC.isChecked())
+                LoadPic();
+            //if(DownloadFA.isChecked())
         }
-        return name.trim();
     }
 
-    private static String MovieRank_otherSite(String main, String key, int pos) {
-        int Pos = main.indexOf(key, pos);
-        String rank = "";
-        String temp = main.substring(Pos + key.length() + 700, Pos + key.length() + 1000);
-        String findname = "<span class=\"unbold\">";
-        String temp2 = temp.substring(temp.indexOf(findname) + findname.length(), temp.indexOf(findname) + findname.length() + 10);
-        for (int i = 0; i < temp2.length(); i++) {
-            if (temp2.charAt(i) != '<')
-                if (temp2.charAt(i) >= '0' && temp2.charAt(i) <= '9')
-                    rank += temp2.charAt(i);
-                else
-                    break;
-        }
-        return rank;
-    }
 
-    private static String FINDNAME(String FindName, String Maindata, int pos, int Startpos) {
-        String Namesave = "";
-        pos = Maindata.indexOf(FindName, Startpos);
-        String temp = Maindata.substring(pos + FindName.length() + 220, pos + FindName.length() + 350);
-        int POS = temp.indexOf(" >");
-        for (int i = POS + 2; i < temp.length(); i++) {
-            if (temp.charAt(i) != '<')
-                Namesave += temp.charAt(i);
-            else
-                break;
-        }
-        return Namesave;
-    }
-
-    private static String FindActorANDActress(String FindDIR, String Maindata, int pos, int Startpos) {
-        String Acirsave = "";
-        pos = Maindata.indexOf(FindDIR, Startpos);
-        String temp = Maindata.substring(pos + FindDIR.length() + 181, pos + FindDIR.length() + 280);
-        int DIRpos = temp.indexOf("(dir.)");
-        for (int i = DIRpos + 8; i < temp.length(); i++) {
-            if (temp.charAt(i) != '"')
-                if (temp.charAt(i) == ',')
-                    Acirsave += " -";
-                else
-                    Acirsave += temp.charAt(i);
-            if (temp.charAt(i) == '"')
-                break;
-        }
-        return Acirsave;
-    }
-
-    private static String FINDDIR(String FindDIR, String Maindata, int pos, int Startpos) {
-        String Dirsave = "";
-        pos = Maindata.indexOf(FindDIR, Startpos);
-        String temp = Maindata.substring(pos + FindDIR.length() + 180, pos + FindDIR.length() + 230);
-        int POS = temp.indexOf("=\"");
-        for (int i = POS + 2; i < temp.length(); i++) {
-            if (temp.charAt(i) != ' ' && temp.charAt(i) != '"' && temp.charAt(i) != '(')
-                Dirsave += temp.charAt(i);
-            if (temp.charAt(i) == '(')
-                break;
-        }
-        return Dirsave;
-    }
-
-    private static String FINDYear(String FindYear, String Maindata, int pos, int Startpos) {
-        String Yearsave = "";
-        pos = Maindata.indexOf(FindYear, Startpos);
-        String temp = Maindata.substring(pos + FindYear.length() + 1, pos + FindYear.length() + 5);
-        for (int i = 0; i < temp.length(); i++)
-            if ((temp.charAt(i) <= '9') && (temp.charAt(i) >= '0'))
-                Yearsave += temp.charAt(i);
-        return Yearsave;
-    }
-
-    private static String FINDIMDB(String FindIMDB, String Maindata, int pos, int Startpos) {
-        String IMDbsave = "";
-        pos = Maindata.indexOf(FindIMDB, Startpos);
-        String temp = Maindata.substring(pos + FindIMDB.length() + 200, pos + FindIMDB.length() + 600);
-        int POS = temp.indexOf("<a href=\"");
-        for (int i = POS + 9; i < temp.length(); i++) {
-            if (temp.charAt(i) != '"')
-                IMDbsave += temp.charAt(i);
-            else
-                break;
-        }
-        return "http://www.imdb.com" + IMDbsave;
-    }
 
     private static String findLink(String findLinkFarsiStory, String Maindata, int Startpos) {
         String data = "";
@@ -1067,97 +796,31 @@ public class DownloadData extends AppCompatActivity {
         thread.run();
     }
 
-    private void ProseseonPICs(int code) {
+    private void LoadPic()
+    {
+        List<Pair<String,String>>DownloadList=new ArrayList<>();
         SQLiteDatabase temp;
         database movieDB = new database(getApplicationContext(), "Movie_db", null, 1);
         temp = movieDB.getReadableDatabase();
-        Cursor cursor1 = temp.query("MOVIEFARSIDATA2", new String[]{"Movie_ENname", "Movie_time", "Movie_Style", "Movie_Award", "MovieStory", "MovieQUPIC", "Movie_Naghed", "Download_movie_link_720p", "Download_movie_link_1080p", "Download_movie_subtitle_link", "isdubled"}, null, null, null, null, null);
-        cursor1.moveToNext();
-        while (cursor1.moveToNext()) {
-            if (!cursor1.getString(cursor1.getColumnIndex("MovieQUPIC")).equals("")) {
-                File file = new File(getApplicationContext().getFilesDir().getPath() + "/" + cursor1.getString(cursor1.getColumnIndex("Movie_ENname")).trim());
+        Cursor cursor = temp.query("MOVIEDATA", new String[]{"Movie_Rank", "IMDB_RANK_simple", "Movie_year", "Movie_name", "Movie_farsi_name", "MovieDirector_name", "Actors_Actress", "IMDB_RANK_full", "Movie_IMDB_link", "Movie_picture_link"}, null, null, null, null, null);
+        cursor.moveToFirst();
+        cursor.moveToNext();
+        while (cursor.moveToNext()) {
+            if (!cursor.getString(cursor.getColumnIndex("Movie_picture_link")).equals("")) {
+                File file = new File(getApplicationContext().getFilesDir().getPath() + "/" + cursor.getString(cursor.getColumnIndex("Movie_name")).trim());
                 if (!file.exists()) {
-                    AsyncTaskcounter++;
-                    String url=cursor1.getString(cursor1.getColumnIndex("MovieQUPIC"));
-                    final String name=cursor1.getString(cursor1.getColumnIndex("Movie_ENname"));
-                    Picasso.with(getApplicationContext()).load(url).into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                            try {
-                                FileOutputStream fos = new FileOutputStream(getApplicationContext().getFilesDir().getPath() + "/" + name.trim());
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                                fos.flush();
-                                fos.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            } finally {
-                                currnetprogress++;
-                                RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.noti);
-                                contentView.setImageViewBitmap(R.id.status_icon, BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                                        R.mipmap.ic_launcher));
-                                contentView.setTextViewText(R.id.status_text, currnetprogress + " از " + AsyncTaskcounter);
-                                contentView.setTextViewText(R.id.titlenoti, "اطلاعات فیلم");
-                                contentView.setTextViewText(R.id.textnoti, "در حال دریافت پوستر ها...");
-                                contentView.setProgressBar(R.id.status_progress, AsyncTaskcounter, currnetprogress, false);
-                                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                Intent intent = new Intent();
-                                PendingIntent pendingIntent = PendingIntent.getActivity(DownloadData.this, 1, intent, 0);
-                                builder.setAutoCancel(false);
-                                builder.setOngoing(true);
-                                builder.setContentIntent(pendingIntent);
-                                builder.setContentTitle("اطلاعات فیلم");
-                                builder.setSmallIcon(R.mipmap.ic_launcher);
-                                //builder.setCustomBigContentView(contentView);
-                                builder.setCustomContentView(contentView);
-                                builder.build();
-                                Notification notification1 = builder.getNotification();
-                                notificationManager.notify("Movie app", 0, notification1);
-                                if (AsyncTaskcounter == currnetprogress && !checkpic) {
-                                    checkpic = true;
-                                    //Toast.makeText(getApplicationContext(), counter1+" پوستر جدید دانلود شد ", Toast.LENGTH_SHORT).show();
-                                    Notification.Builder builder = new Notification.Builder(getApplicationContext());
-                                    builder.setAutoCancel(true);
-                                    builder.setOngoing(false);
-                                    builder.setSmallIcon(R.mipmap.ic_launcher);
-                                    builder.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                                            R.mipmap.ic_launcher));
-                                    builder.setContentTitle("اطلاعات فیلم");
-                                    builder.setContentText("تمام اطلاعات دریافت شد");
-                                    builder.setColor(getApplicationContext().getResources()
-                                            .getColor(R.color.backgroundunSwith));
-                                    builder.setContentIntent(pendingIntent);
-                                    builder.build();
-                                    Notification notification = builder.getNotification();
-                                    notificationManager.notify("Movie app", 0, notification);
-                                    Toast.makeText(getApplicationContext(), "پوستر ها دانلود شد", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onBitmapFailed(Drawable drawable) {
-
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable drawable) {
-
-                        }
-                    });
+                    ++AsyncTaskcounter;
+                    String url = cursor.getString(cursor.getColumnIndex("Movie_picture_link"));
+                    final String name = cursor.getString(cursor.getColumnIndex("Movie_name"));
+                    Log.e("AsyncTaskcounter", "MovieName:" + name + "  PICLink:" + url);
+                    DownloadList.add(new Pair<>(name,url));
                 }
             }
         }
-        Cursor cursor = temp.query("MOVIEDATA", new String[]{"Movie_Rank", "IMDB_RANK_simple", "Movie_year", "Movie_name", "Movie_farsi_name", "MovieDirector_name", "Actors_Actress", "IMDB_RANK_full", "Movie_IMDB_link", "Movie_picture_link"}, null, null, null, null, null);
-        cursor.moveToFirst();
-        while (cursor.moveToNext()) {
-            File file = new File(getApplicationContext().getFilesDir().getPath() + "/" + cursor.getString(cursor.getColumnIndex("Movie_name")).trim());
-            if (!file.exists()) {
-                AsyncTaskcounter++;
-                new prossesonPIC().execute(cursor.getString(cursor.getColumnIndex("Movie_name")),cursor.getString(cursor.getColumnIndex("Movie_year")));
-            }
-        }
 
+        DownloadPic(DownloadList,0);
+
+        temp.close();
         if (currnetprogress == AsyncTaskcounter) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(getApplicationContext());
@@ -1175,13 +838,83 @@ public class DownloadData extends AppCompatActivity {
             builder.setContentIntent(pendingIntent);
             builder.build();
             Notification notification = builder.getNotification();
+            assert notificationManager != null;
             notificationManager.notify("Movie app", 0, notification);
             Toast.makeText(getApplicationContext(), "پوستر ها دانلود شد", Toast.LENGTH_SHORT).show();
             finish();
         }
-        temp.close();
     }
 
+   private void DownloadPic(List<Pair<String,String>>List,final int index)
+    {
+       if(List.size()>index) {
+           Glide
+                   .with(getApplicationContext())
+                   .load(List.get(index).second)
+                   .asBitmap()
+                   .into(new SimpleTarget<Bitmap>() {
+                       @Override
+                       public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                           try {
+                               Log.e("onResourceReady", "MovieName:" + List.get(index).first + "AsyncTaskcounter:" + AsyncTaskcounter + "   currnetprogress:" + currnetprogress);
+                               FileOutputStream fos = new FileOutputStream(getApplicationContext().getFilesDir().getPath() + "/" + List.get(index).first.trim());
+                               resource.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                               fos.flush();
+                               fos.close();
+                           } catch (Exception e) {
+                               e.printStackTrace();
+                           } finally {
+                               currnetprogress++;
+                               RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.noti);
+                               contentView.setImageViewBitmap(R.id.status_icon, BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                                       R.mipmap.ic_launcher));
+                               contentView.setTextViewText(R.id.status_text, currnetprogress + " از " + AsyncTaskcounter);
+                               contentView.setTextViewText(R.id.titlenoti, "اطلاعات فیلم");
+                               contentView.setTextViewText(R.id.textnoti, "در حال دریافت پوستر ها...");
+                               contentView.setProgressBar(R.id.status_progress, AsyncTaskcounter, currnetprogress, false);
+                               NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                               Intent intent = new Intent();
+                               PendingIntent pendingIntent = PendingIntent.getActivity(DownloadData.this, 1, intent, 0);
+                               builder.setAutoCancel(false);
+                               builder.setOngoing(true);
+                               builder.setContentIntent(pendingIntent);
+                               builder.setContentTitle("اطلاعات فیلم");
+                               builder.setSmallIcon(R.mipmap.ic_launcher);
+                               //builder.setCustomBigContentView(contentView);
+                               builder.setCustomContentView(contentView);
+                               builder.build();
+                               Notification notification1 = builder.getNotification();
+                               assert notificationManager != null;
+                               notificationManager.notify("Movie app", 0, notification1);
+
+
+                               DownloadPic(List, index + 1);
+
+                               if (AsyncTaskcounter == currnetprogress && !checkpic) {
+                                   checkpic = true;
+                                   //Toast.makeText(getApplicationContext(), counter1+" پوستر جدید دانلود شد ", Toast.LENGTH_SHORT).show();
+                                   Notification.Builder builder = new Notification.Builder(getApplicationContext());
+                                   builder.setAutoCancel(true);
+                                   builder.setOngoing(false);
+                                   builder.setSmallIcon(R.mipmap.ic_launcher);
+                                   builder.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                                           R.mipmap.ic_launcher));
+                                   builder.setContentTitle("اطلاعات فیلم");
+                                   builder.setContentText("تمام اطلاعات دریافت شد");
+                                   builder.setColor(getApplicationContext().getResources()
+                                           .getColor(R.color.backgroundunSwith));
+                                   builder.setContentIntent(pendingIntent);
+                                   builder.build();
+                                   Notification notification = builder.getNotification();
+                                   notificationManager.notify("Movie app", 0, notification);
+                                   Toast.makeText(getApplicationContext(), "پوستر ها دانلود شد", Toast.LENGTH_SHORT).show();
+                                   finish();
+                               }
+                           }
+                       }
+                   });
+       }
+   }
     private boolean checkconectivity() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo[] = connectivityManager.getAllNetworkInfo();
@@ -1200,8 +933,10 @@ public class DownloadData extends AppCompatActivity {
         progressDialog.dismiss();
         if(buldernoti!=null)
         buldernoti.setOngoing(false);
+
         NotificationManager mNotificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
+        assert mNotificationManager != null;
         mNotificationManager.cancelAll();
         super.onDestroy();
     }

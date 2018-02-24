@@ -27,7 +27,8 @@
     <item
         android:id="@+id/UpdateList"
         android:icon="@android:drawable/ic_menu_rotate"
-        android:title="بروز رسانی لیست" />
+        android:title="بروز رسانی لیست"
+        android:visible="false" />
     <item
         android:id="@+id/aboutus"
         android:icon="@android:drawable/ic_menu_info_details"

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <ImageView
+        android:id="@+id/CoverBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".2"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp">
+
+            <RelativeLayout
+                android:id="@+id/topbanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/MovieCover"
+                    android:layout_width="130dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="64dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="99dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/MovieName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

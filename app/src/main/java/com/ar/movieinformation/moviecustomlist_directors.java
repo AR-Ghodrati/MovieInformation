@@ -5,8 +5,6 @@ package com.ar.movieinformation;
  */
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,10 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Vector;
+
+import static com.ar.movieinformation.movie_list.MovieData;
+import static com.ar.movieinformation.movie_list.MovieList;
 
 public class moviecustomlist_directors extends RecyclerView.Adapter<moviecustomlist_directors.MyViewHolder> {
 
@@ -40,15 +42,32 @@ public class moviecustomlist_directors extends RecyclerView.Adapter<moviecustoml
         }
         void setimageone(File one) {
             this.one=one;
-            Picasso.with(context).load(one).into(diricon1);
+            Picasso.
+                    with(context).
+                    load(one)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .error(R.drawable.icon)
+                    .transform(new RoundedTransformation(45,5))
+                    . into(diricon1);
         }
         void setimageTwo(File two) {
             this.two=two;
-            Picasso.with(context).load(two).into(diricon2);
+            Picasso.with(context)
+                    .load(two)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .error(R.drawable.icon)
+                    .transform(new RoundedTransformation(45,5))
+                    .into(diricon2);
         }
         void setimagesThree(File three) {
             this.three=three;
-            Picasso.with(context).load(three).into(diricon3);
+            Picasso
+                    .with(context)
+                    .load(three)
+                    .error(R.drawable.icon)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .transform(new RoundedTransformation(45,5))
+                    .into(diricon3);
         }
         void setallVisible()
         {
@@ -99,21 +118,19 @@ public class moviecustomlist_directors extends RecyclerView.Adapter<moviecustoml
         Vector<String> moviesPICS=new Vector<>();
         int Dirmoviescount=0;
         float rank=0;
-        SQLiteDatabase temp;
-        database movieDB = new database(context, "Movie_db", null, 1);
-        temp = movieDB.getReadableDatabase();
+
         holder.MovieENTitle.setText(Dirnames.elementAt(position));
         holder.MovieENTitle.setGravity(Gravity.CENTER);
-        final Cursor cursormain = temp.query("MOVIEDATA", new String[]{"Movie_Rank", "IMDB_RANK_simple", "Movie_year", "Movie_name", "Movie_farsi_name", "MovieDirector_name", "Actors_Actress", "IMDB_RANK_full", "Movie_IMDB_link", "Movie_picture_link"}, null, null, null, null, null);
-        cursormain.moveToFirst();
-        while (cursormain.moveToNext()) {
-            String dirname = cursormain.getString(cursormain.getColumnIndex("MovieDirector_name"));
+
+        for (int i = 0; i <MovieList.size() ; i++) {
+            String dirname = MovieData.get(MovieList.get(i).getTitle().trim()).getDirector();
             if (Dirnames.elementAt(position).equals(dirname)) {
-                String moviename = cursormain.getString(cursormain.getColumnIndex("Movie_name"));
-                rank+=Double.parseDouble(cursormain.getString(cursormain.getColumnIndex("IMDB_RANK_simple")));
+                String moviename = MovieList.get(i).getTitle().trim();
+                rank+=Double.parseDouble(MovieList.get(i).getImdbRating());
                 Dirmoviescount++;
                 moviesPICS.addElement(moviename);
-            }
+        }
+
         }
         holder.MovieFATitle.setText("تعداد فیلم ها : "+Dirmoviescount);
         holder.avetext.setText(""+String.format("%.1f",rank/Dirmoviescount));

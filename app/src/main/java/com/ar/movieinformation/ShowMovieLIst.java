@@ -1,20 +1,13 @@
 package com.ar.movieinformation;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.util.Vector;
 
 public class ShowMovieLIst extends AppCompatActivity {
     ListView Movielist;
@@ -25,10 +18,10 @@ public class ShowMovieLIst extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_list);
         Movielist = (ListView) findViewById(R.id.Movielist);
-        ReadData();
+        //ReadData();
     }
 
-    private void ReadData() {
+   /* private void ReadData() {
         Thread tread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -151,23 +144,7 @@ public class ShowMovieLIst extends AppCompatActivity {
                         gotopage.putExtra("IMDB_RANK_full",movies.elementAt(position).getIMDB_RANK_full());
                         gotopage.putExtra("count",""+movies.elementAt(position).countranking());
 
-                        /*gotopagefull.putExtra("id",movies.elementAt(position).getMovie_rank());
-                        gotopagefull.putExtra("name","");
-                        gotopagefull.putExtra("Movie_name_farsi",movies.elementAt(position).getMovie_name_farsi());
-                        gotopagefull.putExtra("Movie_name",movies.elementAt(position).getMovie_name());
-                        gotopagefull.putExtra("Movie_Rank",movies.elementAt(position).getMovie_Rank());
-                        gotopagefull.putExtra("Movie_year",movies.elementAt(position).getMovie_year());
-                        gotopagefull.putExtra("MovieDirector_name",movies.elementAt(position).getMovieDirector_name());
-                        gotopagefull.putExtra("Movie_IMDB_link",movies.elementAt(position).getMovie_IMDB_link());
-                        gotopagefull.putExtra("Movie_picture_link",movies.elementAt(position).getMovie_picture_link());
-                        gotopagefull.putExtra("IMDB_RANK_simple",movies.elementAt(position).getIMDB_RANK_simple());
-                        gotopagefull.putExtra("Actors_Actress",movies.elementAt(position).getActors_Actress());
-                        gotopagefull.putExtra("IMDB_RANK_full",movies.elementAt(position).getIMDB_RANK_full());
-                        gotopagefull.putExtra("count",""+movies.elementAt(position).countranking());
-                        File file=new File(getApplicationContext().getFilesDir().getPath()+"/"+movies.elementAt(position).getMovie_name()+".jpg");
-                        if(file.length()>=8000)
-                        startActivity(gotopagefull);
-                        */
+
                         //else
                             startActivity(gotopage);
                     }
@@ -176,6 +153,7 @@ public class ShowMovieLIst extends AppCompatActivity {
         });
         tread.run();
     }
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_1,menu);
@@ -192,20 +170,20 @@ public class ShowMovieLIst extends AppCompatActivity {
         }
         else if(id==R.id.SortYears) {
             Check = 1;
-            ReadData();
+          //  ReadData();
         }
         else if(id==R.id.SortRank) {
             Check = 0;
-            ReadData();
+          //  ReadData();
         }
         else if(id==R.id.SortpeopleRanking) {
             Check = 3;
-            ReadData();
+         //   ReadData();
         }
         else if(id==R.id.SortNames)
         {
             Check=4;
-            ReadData();
+         //   ReadData();
         }
         return super.onOptionsItemSelected(item);
     }

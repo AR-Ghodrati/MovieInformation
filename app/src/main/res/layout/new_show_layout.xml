@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <ImageView
+        android:id="@+id/CoverBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:alpha=".2"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/topbanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/MovieCover"
+                    android:layout_width="130dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="64dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="99dp"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/MovieName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:text="نام فیلم"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:targetApi="jelly_bean" />
+
+                <TextView
+                    android:id="@+id/MovieFaName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/MovieName"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:text="نام فیلم"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:targetApi="jelly_bean" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

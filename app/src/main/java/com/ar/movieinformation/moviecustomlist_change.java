@@ -5,8 +5,6 @@ package com.ar.movieinformation;
  */
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,24 +12,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.List;
 
 public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist_change.MyViewHolder> {
 
     private Context context;
-    private int COUNT=250;
-    private final String[] movienameEN;
-    private final String[] movienameFA;
-    private final String[] ENpics;
-    private  String[] rank;
-    private  String[] amtiaz;
     private  String[] changerank;
     private  String[] changeamtiaz;
+    private List<Movie> movie;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView rankshow,rankchange,amtiazshow,amtiazchange,MovieENTitle,MovieFATitle;
-        ImageView changeranki,changeamtiazi,imageView;
+        ImageView changeranki,changeamtiazi,imageView,translatedpic;
         public MyViewHolder(View view) {
             super(view);
             MovieENTitle = (TextView) view.findViewById(R.id.firstLinechange);
@@ -43,20 +38,14 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
             amtiazshow=(TextView)view.findViewById(R.id.amtiazshow);
             changeranki=(ImageView) view.findViewById(R.id.rankchangeicon);
             changeamtiazi=(ImageView) view.findViewById(R.id.amtiazchangeicon);
+            translatedpic=(ImageView) view.findViewById(R.id.translatedpic);
         }
     }
     public moviecustomlist_change(
-                                  String[] movienameENs, String[] movienameFAs, String[]pics, String[]ranks, String[]amtiaz, String[] changerank,String[]changeamtiaz) {
-        this.movienameEN = movienameENs;
-        this.movienameFA=movienameFAs;
-        this.ENpics=pics;
-        this.rank=ranks;
-        this.amtiaz=amtiaz;
+                                List<Movie>  movie, String[] changerank,String[]changeamtiaz) {
+        this.movie=movie;
         this.changerank=changerank;
         this.changeamtiaz=changeamtiaz;
-    }
-    public void setcount(int count){
-        COUNT=count;
     }
 
     @Override
@@ -68,39 +57,46 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
     }
 
     @Override
+    public void onViewRecycled(MyViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.translatedpic.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.MovieENTitle.setText(movienameEN[position]);
-        holder.MovieFATitle.setText(movienameFA[position]);
-        holder.rankshow.setText(rank[position]);
+        holder.MovieENTitle.setText(movie.get(position).getTitle());
+        holder.MovieFATitle.setText(movie.get(position).getTitleFa());
+        holder.rankshow.setText(movie.get(position).getTop_250_Rank());
         holder. rankchange.setText(changerank[position]);
-        holder. amtiazshow.setText(amtiaz[position]);
+        holder. amtiazshow.setText(movie.get(position).getImdbRating());
         if(changerank[position]!=null&&changeamtiaz[position]!=null) {
             if (Double.parseDouble(changerank[position]) > 0) {
-               // holder.changeranki.setImageResource(R.drawable.up);
-                Picasso.with(context).load(R.drawable.up).into( holder.changeranki);
+                holder.changeranki.setImageResource(R.drawable.up);
+               // Picasso.with(context).load(R.drawable.up).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                     //   .into( holder.changeranki);
                 holder.rankchange.setText("+" + changerank[position]);
             } else if (Double.parseDouble(changerank[position]) < 0)
-               // holder.changeranki.setImageResource(R.drawable.down);
-                Picasso.with(context).load(R.drawable.down).into( holder.changeranki);
+                holder.changeranki.setImageResource(R.drawable.down);
+              //  Picasso.with(context).load(R.drawable.down).memoryPolicy(MemoryPolicy.NO_CACHE).into( holder.changeranki);
 
             else {
-                //holder.changeranki.setImageResource(R.drawable.equals);
-                Picasso.with(context).load(R.drawable.equals).into( holder.changeranki);
+                holder.changeranki.setImageResource(R.drawable.equals);
+                //Picasso.with(context).load(R.drawable.equals).memoryPolicy(MemoryPolicy.NO_CACHE).into( holder.changeranki);
                 holder.rankchange.setText("بدون تغییر");
             }
             if (Double.parseDouble(changeamtiaz[position]) > 0) {
-                //holder.changeamtiazi.setImageResource(R.drawable.up);
-                Picasso.with(context).load(R.drawable.up).into( holder.changeamtiazi);
+                holder.changeamtiazi.setImageResource(R.drawable.up);
+               // Picasso.with(context).load(R.drawable.up).memoryPolicy(MemoryPolicy.NO_CACHE).into( holder.changeamtiazi);
                 holder.amtiazchange.setText("+"+String.format( "%.1f", Double.parseDouble(changeamtiaz[position])));
             }
             else if (Double.parseDouble(changeamtiaz[position]) < 0) {
-                //holder.changeamtiazi.setImageResource(R.drawable.down);
-                Picasso.with(context).load(R.drawable.down).into( holder.changeamtiazi);
+                holder.changeamtiazi.setImageResource(R.drawable.down);
+               // Picasso.with(context).load(R.drawable.down).memoryPolicy(MemoryPolicy.NO_CACHE).into( holder.changeamtiazi);
                 holder. amtiazchange.setText(String.format( "%.1f", Double.parseDouble(changeamtiaz[position])));
             }
             else {
-               // holder.changeamtiazi.setImageResource(R.drawable.equals);
-                Picasso.with(context).load(R.drawable.equals).into( holder.changeamtiazi);
+                holder.changeamtiazi.setImageResource(R.drawable.equals);
+                //Picasso.with(context).load(R.drawable.equals).memoryPolicy(MemoryPolicy.NO_CACHE).into( holder.changeamtiazi);
                 holder.amtiazchange.setText("بدون تغییر");
             }
         }
@@ -112,41 +108,26 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
             holder.changeamtiazi.setImageResource(R.drawable.newicon);
         }
         File file = null;
-        if(ENpics[position]==null)
-            Picasso.with(context).load(R.drawable.icon).into(holder.imageView);
-        if (ENpics[position] != null) {
-            file = new File(context.getFilesDir().getPath() + "/" + ENpics[position].trim());
+        if(movie.get(position).getTitle()==null)
+            Picasso.with(context).load(R.drawable.icon).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.imageView);
+        if (movie.get(position).getTitle() != null) {
+            file = new File(context.getFilesDir().getPath() + "/" + movie.get(position).getTitle().trim());
         }
         assert file != null;
         if (file.exists()) {
-            Picasso.with(context).load(file).into(holder.imageView);
+            Picasso.with(context)
+                    .load(file)
+                    .error(R.drawable.icon)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .transform(new RoundedTransformation(45,5))
+                    .into(holder.imageView);
             //Bitmap bmp = BitmapFactory.decodeFile(context.getFilesDir().getPath() + "/" + ENpics[position].trim());
            // holder.imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 110, 160, false));
         } else {
-            SQLiteDatabase temp;
-            database movieDB = new database(context, "Movie_db", null, 1);
-            temp = movieDB.getReadableDatabase();
-            Cursor cursor = temp.query("MOVIEFARSIDATA2", new String[]{"Movie_ENname", "Movie_time", "Movie_Style", "Movie_Award","MovieStory", "MovieQUPIC","Movie_Naghed","Download_movie_link_720p","Download_movie_link_1080p","Download_movie_subtitle_link","isdubled"}, null, null, null, null, null);
-            while (cursor.moveToNext()) {
-                if (cursor.getString(cursor.getColumnIndex("Movie_ENname")).lastIndexOf(0) == ' ') {
-                    ENpics[position] = cursor.getString(cursor.getColumnIndex("Movie_ENname")).trim().substring(0, cursor.getString(cursor.getColumnIndex("Movie_ENname")).length() - 1);
-                } else {
-                    String name = cursor.getString(cursor.getColumnIndex("Movie_ENname")).trim();
-                    if (ENpics[position] != null && ENpics[position].equalsIgnoreCase(name)) {
-                        ENpics[position] = name;
-                        break;
-                    }
-                }
-            }
-            if (ENpics[position] != null) {
-                File file1 = new File(context.getFilesDir().getPath() + "/" + ENpics[position].trim());
-                if (file1.exists()) {
-                    Picasso.with(context).load(file1).into(holder.imageView);
-                    // Bitmap bmp = BitmapFactory.decodeFile(context.getFilesDir().getPath() + "/" + ENpics[position].trim());
-                   // holder. imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 110, 160, false));
-                }
-            }
         }
+        if(movie.get(position).isTranslated())
+            holder.translatedpic.setVisibility(View.VISIBLE);
+        else holder.translatedpic.setVisibility(View.GONE);
     }
 
     @Override
@@ -156,7 +137,7 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
 
     @Override
     public int getItemCount() {
-        return  COUNT;
+        return  movie.size();
     }
 
 }

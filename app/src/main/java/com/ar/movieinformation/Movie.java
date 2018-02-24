@@ -1,126 +1,164 @@
 package com.ar.movieinformation;
 
+import java.io.Serializable;
+
 /**
  * Created by alireza on 16/08/2017.
  */
 
-class Movie {
-    private String Movie_name = "";
-    private String Movie_Rank = "";
-    private String Movie_year = "";
-    private String MovieDirector_name = "";
-    private String IMDB_RANK_simple = "";
-    private String Actors_Actress = "";
-    private String IMDB_RANK_full = "";
-    private String Movie_picture_link = "";
-    private String Movie_IMDB_link = "";
-    private String Rank="";
-    private String Movie_Farsi_name="";
+public class Movie implements Serializable {
+
+
+    private String IMDBlink;
+    private String IMDbRankFull;
+    private String Top_250_Rank;
+    private String savedCountRanking;
+    private String titleFa;
+    private String poster;
+
+
+    private String title;
+    private String year;
+    private String imdbRating;
+    private boolean IsTranslated;
+    //private ShortPlot ExtraInfo;
+
+
 
     Movie() {
-        Movie_name = "";
-        Movie_Rank = "";
-        Movie_year = "";
-        MovieDirector_name = "";
-        IMDB_RANK_simple = "";
-        Actors_Actress = "";
-        IMDB_RANK_full = "";
-        Movie_picture_link = "";
-        Movie_IMDB_link = "";
-        Movie_Farsi_name="";
+
+
+        IsTranslated=false;
+       // ExtraInfo=new ShortPlot();
     }
 
-    void setMovie_name(String Moviename) {
-        Movie_name = Moviename;
-    }
-    void setMovie_rank(String rank) {
-        Rank = rank;
-    }
-    void setMovie_farsi_name(String Moviefarsiname) {
-        Movie_Farsi_name = Moviefarsiname;
+  /*  public ShortPlot getExtraInfo() {
+        return ExtraInfo;
     }
 
-    void setMovie_Rank(String MovieRank) {
-        Movie_Rank = MovieRank;
+    public void setExtraInfo(ShortPlot extraInfo) {
+        ExtraInfo = extraInfo;
+    }
+    */
+
+    public boolean isTranslated() {
+        return IsTranslated;
     }
 
-    void setMovie_year(String Movieyear) {
-        Movie_year = Movieyear;
+    public void setTranslated(boolean translated) {
+        IsTranslated = translated;
     }
 
-    void setMovieDirector_name(String MovieDirectorname) {
-        MovieDirector_name = MovieDirectorname;
+    public String getPoster() {
+        return poster;
     }
 
-    void setIMDB_RANK_simple(String IMDBRANKsimple) {
-        IMDB_RANK_simple = IMDBRANKsimple;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
-    void setActors_Actress(String ActorsActress) {
-        Actors_Actress = ActorsActress;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
-    void setIMDB_RANK_full(String IMDBRANKfull) {
-        IMDB_RANK_full = IMDBRANKfull;
+
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
-    void setMovie_picture_link(String Moviepicturelink) {
-        Movie_picture_link = Moviepicturelink;
+
+
+
+    public String getSavedCountRanking() {
+        return savedCountRanking;
     }
 
-    void setMovie_IMDB_link(String MovieIMDBlink) {
-        Movie_IMDB_link = MovieIMDBlink;
-    }
-
-    String getMovie_name() {
-        return Movie_name;
-    }
-    String getMovie_name_farsi() {
-        return Movie_Farsi_name;
-    }
-    String getMovie_rank() {
-        return Rank;
-    }
-
-    String getMovie_Rank() {
-        return Movie_Rank;
-    }
-
-    String getMovie_year() {
-        return Movie_year;
-    }
-
-    String getMovieDirector_name() {
-        return MovieDirector_name;
-    }
-
-    String getIMDB_RANK_simple() {
-        return IMDB_RANK_simple;
-    }
-
-    String getActors_Actress() {
-        return Actors_Actress;
-    }
-
-    String getIMDB_RANK_full() {
-        return IMDB_RANK_full;
-    }
-
-    String getMovie_picture_link() {
-        return Movie_picture_link;
-    }
-
-    String getMovie_IMDB_link() {
-        return Movie_IMDB_link;
+    public void setSavedCountRanking(String savedCountRanking) {
+        this.savedCountRanking = savedCountRanking;
     }
 
     int countranking() {
-        String temp = "";
-        for (int i = 0; i < IMDB_RANK_full.length(); i++) {
-            if (IMDB_RANK_full.charAt(i) >= '0' && IMDB_RANK_full.charAt(i) <= '9')
-                temp += IMDB_RANK_full.charAt(i);
+      //  Log.e("IMDbRankFull",IMDbRankFull);
+        StringBuilder temp = new StringBuilder();
+        for (int i = 0; i < IMDbRankFull.length(); i++) {
+            if (IMDbRankFull.charAt(i) >= '0' && IMDbRankFull.charAt(i) <= '9')
+                temp.append(IMDbRankFull.charAt(i));
         }
         String num = temp.substring(2);
         return Integer.parseInt(num);
     }
+
+    public String getIMDBlink() {
+        return IMDBlink;
+    }
+
+    public void setIMDBlink(String IMDBlink) {
+        this.IMDBlink = IMDBlink;
+    }
+
+
+
+    public String getTitleFa() {
+        return titleFa;
+    }
+
+    public String getTop_250_Rank() {
+        return Top_250_Rank;
+    }
+
+    public void setIMDbRankFull(String IMDbRankFull) {
+        this.IMDbRankFull = IMDbRankFull;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+
+    public void setTitleFa(String titleFa) {
+        this.titleFa = titleFa;
+    }
+
+    public void setTop_250_Rank(String top_250_Rank) {
+        Top_250_Rank = top_250_Rank;
+    }
+
+    public String getIMDbRankFull() {
+        return IMDbRankFull;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+
+
+    public String getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(String imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+
+
+
 }

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ar.movieinformation.OMDB.Model.ShortPlot;
+
 public class FourFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,11 +42,11 @@ public class FourFragment extends Fragment {
         }
     }
 
-    public static FourFragment setdataandshow(String naghed) {
+    public static FourFragment setdataandshow(ShortPlot plot) {
 
         FourFragment f = new FourFragment();
         Bundle b = new Bundle();
-        b.putString("naghed",naghed);
+        b.putString("naghed",plot.getNaghed());
         f.setArguments(b);
         return f;
     }

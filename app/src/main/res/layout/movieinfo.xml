@@ -8,12 +8,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="600dp">
+
         <View
             android:id="@+id/SplitLine_hor7"
             android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:layout_marginTop="45dp"
+            android:layout_height="2dp"
             android:layout_alignTop="@+id/DIRname"
+            android:layout_marginTop="45dp"
             android:background="@color/colorAccent" />
 
         <TextView
@@ -21,15 +22,103 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="27dp"
-            android:layout_marginRight="27dp"
-            android:layout_marginTop="60dp"
-            android:text="sdsdfesfsefewfwefwfewfwfw"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="80dp"
+            android:gravity="right"
             android:textAlignment="textEnd"
             android:textColor="@android:color/background_light"
-            android:textSize="14sp"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/SplitLine_hor9"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignTop="@+id/productionname"
+            android:layout_marginTop="45dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/productionname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageView8"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:ellipsize="marquee"
+            android:gravity="right"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:padding="3dp"
+            android:singleLine="true"
+            android:text="بببببب"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <View
+            android:id="@+id/SplitLine_hor10"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignTop="@+id/languagenname"
+            android:layout_marginTop="45dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/languagenname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView31"
+            android:layout_alignLeft="@+id/productionname"
+            android:layout_alignRight="@+id/textView31"
+            android:layout_alignStart="@+id/productionname"
+            android:layout_below="@+id/imageView13"
+            android:layout_marginTop="35dp"
+            android:ellipsize="marquee"
+            android:gravity="right"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <View
+            android:id="@+id/SplitLine_hor11"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignTop="@+id/countrynname"
+            android:layout_marginTop="45dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/countrynname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView39"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/textView39"
+            android:layout_below="@+id/SplitLine_hor10"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="75dp"
+            android:ellipsize="marquee"
+            android:gravity="right"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp"
             android:textStyle="bold" />
         <View
             android:id="@+id/SplitLine_hor6"
@@ -43,14 +132,12 @@
             android:id="@+id/YEAR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/DIRname"
-            android:layout_alignRight="@+id/DIRname"
-            android:layout_below="@+id/SplitLine_hor7"
-            android:layout_marginTop="45dp"
-            android:text="45545"
+            android:layout_below="@+id/imageView12"
+            android:layout_toLeftOf="@+id/imageView12"
+            android:layout_toStartOf="@+id/imageView12"
+            android:gravity="right"
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
-            android:layout_marginRight="5dp"
             android:textStyle="bold" />
         <View
             android:id="@+id/SplitLine_hor5"
@@ -62,16 +149,16 @@
 
         <TextView
             android:id="@+id/CAST"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/YEAR"
+            android:layout_alignRight="@+id/YEAR"
+            android:layout_below="@+id/SplitLine_hor6"
             android:layout_marginTop="50dp"
-            android:text="sdsdsdsdsdsdsdssdsdssdsd"
+            android:gravity="right"
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_below="@+id/SplitLine_hor6"
-            android:layout_alignRight="@+id/YEAR"
-            android:layout_alignEnd="@+id/YEAR" />
+            android:textStyle="bold" />
         <View
             android:id="@+id/SplitLine_hor4"
             android:layout_width="match_parent"
@@ -215,21 +302,20 @@
             android:id="@+id/imageView11"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/dir"
-            android:layout_above="@+id/SplitLine_hor7"
-            android:layout_alignRight="@+id/textView16"
-            android:layout_alignEnd="@+id/textView16"
-            android:layout_marginBottom="14dp" />
+            android:layout_above="@+id/textView40"
+            android:layout_toEndOf="@+id/textView39"
+            android:layout_toRightOf="@+id/textView39"
+            app:srcCompat="@drawable/dir" />
 
         <ImageView
             android:id="@+id/imageView12"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/calender"
-            android:layout_below="@+id/SplitLine_hor7"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@+id/imageView11"
-            android:layout_alignStart="@+id/imageView11" />
+            android:layout_alignEnd="@+id/textView16"
+            android:layout_alignRight="@+id/textView16"
+            android:layout_below="@+id/SplitLine_hor11"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/calender" />
 
         <ImageView
             android:id="@+id/imageView14"
@@ -269,6 +355,122 @@
             android:layout_below="@+id/SplitLine_hor2"
             android:layout_marginTop="13dp"
             app:srcCompat="@drawable/award" />
+
+        <TextView
+            android:id="@+id/CASTs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/awardpic"
+            android:layout_alignRight="@+id/awardpic"
+            android:layout_below="@+id/CAST"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+
+            android:gravity="right|center"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+
+            android:padding="3dp"
+            android:text="بازیگران"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/awardTranslated"
+            android:layout_width="30dp"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@+id/awardpic"
+            android:layout_alignTop="@+id/awardpic"
+            android:layout_toLeftOf="@+id/awardpic"
+            android:layout_toStartOf="@+id/awardpic"
+            android:visibility="gone"
+            app:srcCompat="@drawable/googletranslate" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/SplitLine_hor7"
+            android:layout_marginTop="26dp"
+            android:layout_toEndOf="@+id/textView30"
+            android:layout_toRightOf="@+id/textView30"
+            app:srcCompat="@drawable/producer" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/imageView8"
+            android:layout_alignStart="@+id/imageView8"
+            android:layout_below="@+id/SplitLine_hor9"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/language" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/SplitLine_hor10"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/textView31"
+            android:layout_toRightOf="@+id/textView31"
+            app:srcCompat="@drawable/glob" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/SplitLine_hor9"
+            android:layout_marginBottom="11dp"
+            android:layout_toLeftOf="@+id/imageView11"
+            android:layout_toStartOf="@+id/imageView11"
+            android:gravity="right"
+            android:text="سازنده فیلم:"
+            android:textAlignment="viewEnd"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView13"
+            android:layout_toLeftOf="@+id/imageView13"
+            android:layout_toStartOf="@+id/imageView13"
+            android:gravity="right"
+            android:padding="3dp"
+            android:text="زبان فیلم:"
+            android:textAlignment="viewEnd"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/SplitLine_hor11"
+            android:layout_alignEnd="@+id/YEAR"
+            android:layout_alignRight="@+id/YEAR"
+            android:layout_marginBottom="14dp"
+            android:text="کشور سازنده فیلم:"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/SplitLine_hor7"
+            android:layout_alignEnd="@+id/YEAR"
+            android:layout_alignRight="@+id/YEAR"
+            android:layout_marginBottom="11dp"
+            android:text="نام کارگردان:"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
