@@ -53,6 +53,7 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.change_layout, parent, false);
         this.context=parent.getContext();
+
         return new MyViewHolder(itemView);
     }
 
@@ -60,6 +61,15 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
     public void onViewRecycled(MyViewHolder holder) {
         super.onViewRecycled(holder);
         holder.translatedpic.setVisibility(View.GONE);
+        Picasso.with(context)
+                .load(R.drawable.icon)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                //.error(R.drawable.icon)
+                .fit()
+                .centerCrop()
+                //.resize(240,300)
+                .transform(new RoundedTransformation(20,2))
+                .into(holder.imageView);
     }
 
     @Override

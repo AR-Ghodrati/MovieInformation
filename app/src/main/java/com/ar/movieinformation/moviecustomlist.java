@@ -46,6 +46,15 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
     public void onViewRecycled(MyViewHolder holder) {
         super.onViewRecycled(holder);
        holder. transletedLogo.setVisibility(View.GONE);
+        Picasso.with(context)
+                .load(R.drawable.icon)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                //.error(R.drawable.icon)
+                .fit()
+                .centerCrop()
+                //.resize(240,300)
+                .transform(new RoundedTransformation(20,2))
+                .into(holder.imageView);
     }
 
     @Override

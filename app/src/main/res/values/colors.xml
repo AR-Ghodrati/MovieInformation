@@ -3,6 +3,10 @@
     <color name="colorPrimary">#29201c</color>
     <color name="colorPrimaryDark">#1c1c1d</color>
     <color name="colorAccent">#fb21140f</color>
+    <color name="descriptionTextColor">#fb836052</color>
+    <color name="outerCircleColor">#fb3f2318</color>
+    <color name="targetCircleColor">#fbbfaca5</color>
+
     <color name="Switch">#fffefe</color>
     <color name="darkgrey">#8f350f</color>
     <color name="backgroundSwith">#f516100d</color>

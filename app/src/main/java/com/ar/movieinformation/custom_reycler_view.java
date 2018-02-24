@@ -59,6 +59,15 @@ public class custom_reycler_view extends RecyclerView.Adapter<custom_reycler_vie
     public void onViewRecycled(MyViewHolder holder) {
         super.onViewRecycled(holder);
         holder.IsTranlated.setVisibility(View.GONE);
+        Picasso.with(context)
+                .load(R.drawable.icon)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                //.error(R.drawable.icon)
+                .fit()
+                .centerCrop()
+                //.resize(240,300)
+                .transform(new RoundedTransformation(20,2))
+                .into(holder.imageView);
     }
 
     @Override
@@ -66,10 +75,10 @@ public class custom_reycler_view extends RecyclerView.Adapter<custom_reycler_vie
         holder.MovieENTitle.setText(movie.get(position).getTitle());
         holder.MovieFATitle.setText(movie.get(position).getTitleFa());
         File file = null;
-        if ( movie.get(position).getTitle() != null) {
+        if (movie.get(position).getTitle() != null) {
             file = new File(context.getFilesDir().getPath() + "/" + movie.get(position).getTitle().trim());
         }
-        if(file!=null) {
+        if (file != null) {
             if (file.exists()) {
                 //Bitmap bmp = BitmapFactory.decodeFile(context.getFilesDir().getPath() + "/" + ENpics[position].trim());
                 //holder. imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 120, 170, false));
@@ -78,30 +87,26 @@ public class custom_reycler_view extends RecyclerView.Adapter<custom_reycler_vie
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .error(R.drawable.icon)
                         //.resize(240,270)
-                        .transform(new RoundedTransformation(45,2))
+                        .transform(new RoundedTransformation(45, 2))
                         .into(holder.imageView);
-
-
-
-
 
             } else {
                 holder.v.setVisibility(View.INVISIBLE);
                 holder.year.setVisibility(View.INVISIBLE);
             }
         }
-        if(mod==1)
-            if(check[position]) {
+        if (mod == 1)
+            if (check[position]) {
                 holder.v.setVisibility(View.VISIBLE);
                 holder.year.setVisibility(View.VISIBLE);
                 holder.year.setText(movie.get(position).getYear());
-            }
-            else {
+            } else {
                 holder.v.setVisibility(View.INVISIBLE);
                 holder.year.setVisibility(View.INVISIBLE);
             }
-            if(movie.get(position).isTranslated())
-                holder.IsTranlated.setVisibility(View.VISIBLE);
+        if (movie.get(position).isTranslated()) {
+            holder.IsTranlated.setVisibility(View.VISIBLE);
+        }
 
     }
 

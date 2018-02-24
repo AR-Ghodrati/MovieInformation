@@ -4,6 +4,7 @@ package com.ar.movieinformation;
  * Created by alireza on 29/08/2017.
  */
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -17,9 +18,13 @@ import android.widget.TextView;
 import com.ar.movieinformation.OMDB.Model.ShortPlot;
 import com.squareup.picasso.Picasso;
 
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class SecondFragment extends Fragment {
     RelativeLayout EnStoryBorder,faStoryBorder;
-    ImageView FaStoryPic;
+    ImageView FaStoryPic,EnStoryPic;
     TextView EnStorytext,FaStorytext;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,12 +32,15 @@ public class SecondFragment extends Fragment {
 
         String EnStory=getArguments().getString("EnStory");
         String FaStory=getArguments().getString("FaStory");
+
         boolean IsTranslated=getArguments().getBoolean("IsTranslated");
 
                 View v = inflater.inflate(R.layout.story, container, false);
+               // ShowCase1(v);
                    EnStoryBorder=(RelativeLayout)v.findViewById(R.id.EnStoryBorder);
                    faStoryBorder=(RelativeLayout)v.findViewById(R.id.faStoryBorder);
                    FaStoryPic=(ImageView) v.findViewById(R.id.FaStoryPic);
+                    EnStoryPic=(ImageView) v.findViewById(R.id.EnStoryPic);
                    EnStorytext=(TextView) v.findViewById(R.id.EnStorytext);
                    FaStorytext=(TextView) v.findViewById(R.id.FaStorytext);
                      if(EnStory==null ||EnStory.equals(""))
@@ -44,22 +52,36 @@ public class SecondFragment extends Fragment {
                     }
                     if(FaStory==null ||FaStory.equals(""))
                         faStoryBorder.setVisibility(View.GONE);
-                    else
-                    {
-                        if(IsTranslated)
+                    else {
+                        if (IsTranslated) {
                             FaStoryPic.setImageResource(R.drawable.googletranslate);
-
-                        else Picasso.with(getContext())
+                            //ShowCase3(v);
+                        }
+                        else
+                        {
+                         Picasso.with(getContext())
                                 .load(R.drawable.logo_nadsfaf)
-                                .transform(new RoundedTransformation(80,5))
+                                .transform(new RoundedTransformation(80, 5))
                                 .into(FaStoryPic);
+                          //  ShowCase2(v);
+                        }
                         FaStorytext.setText(FaStory.trim() + "...");
 
                         FaStorytext.setGravity(Gravity.CENTER);
                     }
+
+
                 return v;
 
 
+    }
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible && getContext()!=null) {
+            SharedPreferences preferences = getContext().getSharedPreferences("movieinfosh", MODE_PRIVATE);
+            if(!preferences.getBoolean("ShowCaseLASTFRAG",false))
+            ShowCase();
+        }
     }
     public static SecondFragment setdataandshow(ShortPlot movie) {
 
@@ -71,14 +93,33 @@ public class SecondFragment extends Fragment {
         f.setArguments(b);
         return f;
     }
-    /*
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
+    void ShowCase()
     {
-        super.onActivityCreated(savedInstanceState);
-        SharedPreferences getshared= getActivity().getSharedPreferences("movieinfosh", Context.MODE_PRIVATE);
-        float size=Integer.parseInt(getshared.getString("font_size","18"));
-        FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), "fonts/"+getshared.getString("font_type","SERIF")+".ttf",size);        fontChanger.replaceFonts((ViewGroup) this.getView());
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
+
+        new MaterialTapTargetPrompt.Builder(getActivity())
+                .setTarget(EnStoryPic)
+                .setPrimaryText("داستان فیلم به زبان انگلیسی")
+                .setSecondaryText(" داستان فیلم از سایت نقد فارسی یا ترجمه شده داستان فیلم با مترجم گوگل در پایین داستان به زبان انگلیسی قرار دارد")
+                .setAutoDismiss(true)
+                .setBackButtonDismissEnabled(true)
+                .setFocalColour(getResources().getColor(R.color.descriptionTextColor))
+                .setBackgroundColour(getResources().getColor(R.color.outerCircleColor))
+                .setFocalRadius(105f)
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED)
+                    {
+                        editor.putBoolean("ShowCaseLASTFRAG",true);
+                        editor.apply();
+                    }
+                    else if(state == MaterialTapTargetPrompt.STATE_DISMISSED)
+                    {
+                        editor.putBoolean("ShowCaseLASTFRAG",true);
+                        editor.apply();
+                    }
+                }).show();
+
+
     }
-    */
+
 }

@@ -2,7 +2,6 @@ package com.ar.movieinformation;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -101,6 +100,7 @@ public class firstlayout extends AppCompatActivity{
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            Log.e("LoadNextPage","Called");
             spinKitView.setVisibility(View.GONE);
             if(isDATASCorrect())
             LoadNextPage();
@@ -119,8 +119,8 @@ public class firstlayout extends AppCompatActivity{
         alert.setPositiveButton("باشه", (dialog, which) -> {
             DeleteDatabase();
             new ExtractData().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            editor.putInt("DBupdate_version_Year",2017);
-            editor.putInt("DBupdate_version_Day",305);
+            editor.putInt("DBupdate_version_Year",2018);
+            editor.putInt("DBupdate_version_Day",50);
             editor.apply();
             //  alert1.setTitle("اطلاعات فیلم");
             // alert1.setMessage("اطلاعات اولیه کپی شد");
@@ -250,6 +250,12 @@ public class firstlayout extends AppCompatActivity{
         if(movie_list.MovieList!=null&&movie_list.MovieData!=null&& movie_list.MovieListOld!=null)
         Log.e("DataSizes","MovieList:"+movie_list.MovieList.size()+"   MovieData:"
         +movie_list.MovieData.size()+"   MovieListOld:"+movie_list.MovieListOld.size());
+        if(movie_list.MovieList!=null && movie_list.MovieList.size()<250
+                && movie_list.MovieListOld!=null && movie_list.MovieListOld.size()==250)
+        {
+            Log.e("CopyOldData","Called");
+            movie_list.MovieList.addAll(movie_list.MovieListOld.values());
+        }
        return movie_list.MovieList!=null && movie_list.MovieList.size()==250
                 && movie_list.MovieData!=null && movie_list.MovieData.size()>=250
                 && movie_list.MovieListOld!=null && movie_list.MovieListOld.size()==250
@@ -419,27 +425,25 @@ public class firstlayout extends AppCompatActivity{
             e.printStackTrace();
         }
         finally {
-            new UNZIP().execute();
+            Runnable runnable= this::UNZIP;
+            runOnUiThread(runnable);
+
         }
     }
-    @SuppressLint("StaticFieldLeak")
-    private class UNZIP extends AsyncTask<String,String,String>
+
+    private void UNZIP()
     {
         int prosses=0;
         AlertDialog.Builder alert = new AlertDialog.Builder(firstlayout.this);
         ProgressDialog builder= new ProgressDialog(firstlayout.this);
-        @Override
-        protected void onPreExecute() {
+
             builder.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             builder.setTitle("لطفا صبر کنید");
             builder.setMessage("در حال کپی کردن اطلاعات...");
             builder.setCancelable(false);
             builder.setMax(275);
             builder.show();
-        }
 
-        @Override
-        protected  String doInBackground(String... url) {
             String zip=getApplicationContext().getFilesDir().getPath()+"/files.zip";
             String loc=getApplicationContext().getFilesDir().getPath()+"/";
             try  {
@@ -466,24 +470,15 @@ public class firstlayout extends AppCompatActivity{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
             builder.dismiss();
             alert.setMessage("اطلاعات اولیه کپی شد");
             alert.setCancelable(true);
-            alert.setPositiveButton("باشه", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
+            alert.setPositiveButton("باشه", (dialog, which) -> {
+                File delete=new File(getApplicationContext().getFilesDir().getPath()+"/files.zip");
+                if(delete.exists())
+                    delete.delete();
             });
             alert.show();
-            File delete=new File(getApplicationContext().getFilesDir().getPath()+"/files.zip");
-            if(delete.exists())
-                delete.delete();
-        }
     }
 
 

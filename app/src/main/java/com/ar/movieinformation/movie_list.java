@@ -222,6 +222,18 @@ public class movie_list extends AppCompatActivity
         }
         ReadData();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+      //  ReadData();
+    }
+
     void refreshItems() {
         // Load items
         // ...
@@ -1117,8 +1129,7 @@ public class movie_list extends AppCompatActivity
     private  class PutDataOnDB extends AsyncTask<Void,Void,Void>
     {
 
-
-
+        List<Movie>TempMovies=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1146,13 +1157,16 @@ public class movie_list extends AppCompatActivity
             //Log.e("FANAMEs",FANAMEs.size()+"");
 
 
-            MovieList.clear();
+
 
             int rank = 0;
             String NameSave = "";
             try {
                 final Document documentName;
                 documentName = Jsoup.connect("https://m.imdb.com/chart/top").get();
+
+                //MovieList.clear();
+
                 for (Element rowName : documentName.select("div.col-xs-12.col-md-6")) {
                     String defultName = rowName.select("h4").text();
                     String[] spilited = defultName.split(" ");
@@ -1165,7 +1179,7 @@ public class movie_list extends AppCompatActivity
                         String name = FinalName.toString().trim();
                         Movie movie=new Movie();
                         movie.setTitle(name);
-                        MovieList.add(movie);
+                        TempMovies.add(movie);
                     }
                 }
              rank = 0;
@@ -1207,13 +1221,13 @@ public class movie_list extends AppCompatActivity
                     Log.e("Movie_picture_link", poster);
                     Log.e("Movie_IMDB_link", IMDBKEY + MovieLink);
                     if(!isFirst) {
-                        MovieList.get(rank).setTop_250_Rank(rank + 1 + "");
-                        MovieList.get(rank).setIMDBlink(IMDBKEY + MovieLink);
-                        MovieList.get(rank).setPoster(poster);
-                        MovieList.get(rank).setImdbRating(rating);
-                        MovieList.get(rank).setIMDbRankFull(Rating);
+                        TempMovies.get(rank).setTop_250_Rank(rank + 1 + "");
+                        TempMovies.get(rank).setIMDBlink(IMDBKEY + MovieLink);
+                        TempMovies.get(rank).setPoster(poster);
+                        TempMovies.get(rank).setImdbRating(rating);
+                        TempMovies.get(rank).setIMDbRankFull(Rating);
                         //movie.getExtraInfo().setDirector(DIRNAME);
-                        MovieList.get(rank).setYear(year);
+                        TempMovies.get(rank).setYear(year);
                         //movie.setSavedCountRanking(movie.countranking() + "");
 
                         rank++;
@@ -1221,6 +1235,11 @@ public class movie_list extends AppCompatActivity
                     }
                     isFirst=false;
                 }
+
+                MovieList.clear();
+                MovieList.addAll(TempMovies);
+                TempMovies.clear();
+
                 Log.e("getOMDBDatas", "called");
                 for (int i = 0; i <MovieList.size() ; i++) {
                         MovieList.get(i).setTitleFa(FANAMEs.get(MovieList.get(i).getTitle()));
@@ -1551,10 +1570,12 @@ public class movie_list extends AppCompatActivity
                 try {
 
                     MovieList.get(index).setTitleFa(response);
-                    Log.e("GetFATITLECOUNTER",GetFATITLECOUNTER+"");
+                    Log.e("GetFATITLECOUNTER", GetFATITLECOUNTER + "");
                     GetFATITLECOUNTER--;
-                    if(GetFATITLECOUNTER==0)
+                    if (GetFATITLECOUNTER == 0) {
                         DownalodFaAwards();
+                        Movielist.getAdapter().notifyDataSetChanged();
+                    }
 
                 }
                 catch (Exception e)
@@ -1583,7 +1604,7 @@ public class movie_list extends AppCompatActivity
                 try {
                     MovieData.get(MovieName).setAwards(response);
                     MovieData.get(MovieName).setTranslatedAwards(true);
-
+                    Movielist.getAdapter().notifyDataSetChanged();
                 }
                 catch (Exception e)
                 {
