@@ -76,6 +76,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class movie_list extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -149,6 +150,8 @@ public class movie_list extends AppCompatActivity
             */
         setContentView(R.layout.activity_movie_list);
 
+
+
         Movielist = (RecyclerView) findViewById(R.id.Movielist);
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         // Refresh items
@@ -206,12 +209,9 @@ public class movie_list extends AppCompatActivity
             builder.setMessage("در صورت تمایل از کارکرد برنامه می توانید بخش درباره برنامه را مشاهده کنید ");
             builder.setTitle("اطلاعات فیلم");
             builder.setCancelable(true);
-            builder.setPositiveButton("درباره برنامه", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent=new Intent(movie_list.this,aboutus_myket.class);
-                    startActivity(intent);
-                }
+            builder.setPositiveButton("درباره برنامه", (dialog, which) -> {
+                Intent intent=new Intent(movie_list.this,aboutus_myket.class);
+                startActivity(intent);
             });
             builder.setNegativeButton("تمایلی ندارم", (dialog, which) -> {
 
@@ -220,6 +220,8 @@ public class movie_list extends AppCompatActivity
             editor.putBoolean("IsFirst_AlertShow",true);
             editor.apply();
         }
+        if(!getdata.getBoolean("ShowCaseUPDATE",false))
+        ShowCase();
         ReadData();
     }
 
@@ -1618,6 +1620,31 @@ public class movie_list extends AppCompatActivity
         },error -> Log.e("TranslateError",error.toString()));
 
         requestQueue.add(stringRequest);
+    }
+    private void ShowCase()
+    {
+        SharedPreferences.Editor editor=getSharedPreferences("movieinfosh",MODE_PRIVATE).edit();
+       new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(findViewById(R.id.toolbar))
+                .setPrimaryText("بروزرسانی لیست فیلم")
+                .setSecondaryText("با پایین کشیدن صفحه می توانید لیست فیلم را بروزرسانی کنید")
+                .setAutoDismiss(true)
+                .setBackButtonDismissEnabled(true)
+                .setFocalColour(getResources().getColor(R.color.descriptionTextColor))
+                .setBackgroundColour(getResources().getColor(R.color.outerCircleColor))
+                .setFocalRadius(105f)
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED)
+                    {
+                        editor.putBoolean("ShowCaseUPDATE",true);
+                        editor.apply();
+                    }
+                    else if(state == MaterialTapTargetPrompt.STATE_DISMISSED)
+                    {
+                        editor.putBoolean("ShowCaseUPDATE",true);
+                        editor.apply();
+                    }
+                }).show();
     }
 
 

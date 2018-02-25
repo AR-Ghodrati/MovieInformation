@@ -66,10 +66,10 @@
         android:layout_alignStart="@+id/firstLine"
         android:layout_below="@+id/firstLine"
         android:layout_marginEnd="3dp"
-        android:layout_marginTop="15dp"
 
-        android:layout_toLeftOf="@+id/IsTranlated"
-        android:layout_toStartOf="@+id/IsTranlated"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/transletaedPic"
+        android:layout_toStartOf="@+id/transletaedPic"
         android:ellipsize="marquee"
         android:gravity="right"
         android:marqueeRepeatLimit="marquee_forever"
@@ -107,9 +107,10 @@
         app:srcCompat="@drawable/googletranslate" />
 
     <ImageView
-        android:id="@+id/transletedLogo"
+        android:id="@+id/transletaedPic"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_alignBottom="@+id/secondLine"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/secondLine"

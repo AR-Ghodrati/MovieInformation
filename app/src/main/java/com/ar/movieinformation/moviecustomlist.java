@@ -24,7 +24,7 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
     Vector<Movie>movies;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView year,MovieENTitle,MovieFATitle;
-        ImageView imageView,transletedLogo;
+        ImageView imageView,transletaedPic;
         View v;
         public MyViewHolder(View view) {
             super(view);
@@ -32,7 +32,7 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
              MovieFATitle = (TextView) view.findViewById(R.id.secondLine);
              v=view.findViewById(R.id.viewyear);
              imageView = (ImageView) view.findViewById(R.id.icon);
-            transletedLogo= (ImageView) view.findViewById(R.id.transletedLogo);
+            transletaedPic= (ImageView) view.findViewById(R.id.transletaedPic);
              year = (TextView) view.findViewById(R.id.yearsort);
         }
     }
@@ -45,7 +45,7 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
     @Override
     public void onViewRecycled(MyViewHolder holder) {
         super.onViewRecycled(holder);
-       holder. transletedLogo.setVisibility(View.GONE);
+        holder.transletaedPic.setVisibility(View.GONE);
         Picasso.with(context)
                 .load(R.drawable.icon)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -56,7 +56,6 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
                 .transform(new RoundedTransformation(20,2))
                 .into(holder.imageView);
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -88,6 +87,8 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
                 holder.year.setVisibility(View.INVISIBLE);
             }
         }
+        if(movies.get(position).isTranslated())
+            holder.transletaedPic.setVisibility(View.VISIBLE);
 
     }
 

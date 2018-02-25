@@ -22,9 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
@@ -33,7 +30,10 @@
             android:layout_marginRight="40dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="80dp"
+            android:ellipsize="marquee"
             android:gravity="right"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
             android:textAlignment="textEnd"
             android:textColor="@android:color/background_light"
             android:textSize="15sp"
@@ -62,11 +62,11 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:padding="3dp"
             android:singleLine="true"
-            android:text="بببببب"
             android:textAlignment="textEnd"
             android:textColor="@android:color/background_light"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/SplitLine_hor10"
             android:layout_width="match_parent"
@@ -93,6 +93,7 @@
             android:textColor="@android:color/background_light"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/SplitLine_hor11"
             android:layout_width="match_parent"
@@ -120,12 +121,13 @@
             android:textColor="@android:color/background_light"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/SplitLine_hor6"
             android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:layout_marginTop="45dp"
+            android:layout_height="2dp"
             android:layout_alignTop="@+id/YEAR"
+            android:layout_marginTop="45dp"
             android:background="@color/colorAccent" />
 
         <TextView
@@ -139,12 +141,13 @@
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/SplitLine_hor5"
             android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:layout_marginTop="85dp"
+            android:layout_height="2dp"
             android:layout_alignTop="@+id/CAST"
+            android:layout_marginTop="85dp"
             android:background="@color/colorAccent" />
 
         <TextView
@@ -159,12 +162,13 @@
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/SplitLine_hor4"
             android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:layout_marginTop="60dp"
+            android:layout_height="2dp"
             android:layout_alignTop="@+id/TIME"
+            android:layout_marginTop="60dp"
             android:background="@color/colorAccent" />
 
         <TextView
@@ -179,12 +183,13 @@
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/SplitLine_hor2"
             android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:layout_marginTop="45dp"
+            android:layout_height="2dp"
             android:layout_alignTop="@+id/STYLE"
+            android:layout_marginTop="45dp"
             android:background="@color/colorAccent" />
 
         <TextView
@@ -208,10 +213,10 @@
             android:layout_alignEnd="@+id/STYLE"
             android:layout_alignRight="@+id/STYLE"
             android:layout_below="@+id/textView16"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="18dp"
             android:lineSpacingExtra="8sp"
-            android:layout_marginBottom="15dp"
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -220,39 +225,39 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/SplitLine_hor2"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
             android:layout_marginTop="50dp"
             android:text="  جوایز فیلم :  "
             android:textColor="@android:color/background_light"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_below="@+id/SplitLine_hor2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="13dp"
-            android:layout_marginEnd="13dp" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/movietime_notfound_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:visibility="invisible"
-            android:layout_marginRight="10dp"
-            app:srcCompat="@drawable/notfound"
             android:layout_alignTop="@+id/TIME"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/imageView15"
-            android:layout_toStartOf="@+id/imageView15" />
+            android:layout_toStartOf="@+id/imageView15"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound" />
 
         <TextView
             android:id="@+id/movietime_notfound_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/movietime_notfound_icon"
+            android:layout_toLeftOf="@+id/textView16"
+            android:layout_toStartOf="@+id/textView16"
             android:text="مدت زمان فیلم یافت نشد"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:visibility="invisible"
-            android:layout_alignBottom="@+id/movietime_notfound_icon"
-            android:layout_toLeftOf="@+id/textView16"
-            android:layout_toStartOf="@+id/textView16" />
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/moviestyle_notfound_icon"
@@ -268,23 +273,23 @@
             android:id="@+id/moviestyle_notfound_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/moviestyle_notfound_icon"
+            android:layout_alignEnd="@+id/movietime_notfound_text"
+            android:layout_alignRight="@+id/movietime_notfound_text"
             android:text="سبک فیلم یافت نشد"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:visibility="invisible"
-            android:layout_alignBottom="@+id/moviestyle_notfound_icon"
-            android:layout_alignRight="@+id/movietime_notfound_text"
-            android:layout_alignEnd="@+id/movietime_notfound_text" />
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/movieaward_notfound_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/notfound"
-            android:layout_alignTop="@+id/AWARD"
             android:layout_alignLeft="@+id/moviestyle_notfound_icon"
-            android:layout_alignStart="@+id/moviestyle_notfound_icon" />
+            android:layout_alignStart="@+id/moviestyle_notfound_icon"
+            android:layout_alignTop="@+id/AWARD"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/notfound" />
 
         <TextView
             android:id="@+id/movieaward_notfound_text"
@@ -321,30 +326,30 @@
             android:id="@+id/imageView14"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/cast"
             android:layout_above="@+id/SplitLine_hor5"
             android:layout_alignLeft="@+id/imageView12"
-            android:layout_alignStart="@+id/imageView12" />
+            android:layout_alignStart="@+id/imageView12"
+            app:srcCompat="@drawable/cast" />
 
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/time"
             android:layout_above="@+id/movietime_notfound_icon"
             android:layout_alignLeft="@+id/imageView14"
             android:layout_alignStart="@+id/imageView14"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/time" />
 
         <ImageView
             android:id="@+id/imageView16"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/style"
             android:layout_above="@+id/SplitLine_hor2"
-            android:layout_alignRight="@+id/textView16"
             android:layout_alignEnd="@+id/textView16"
-            android:layout_marginBottom="12dp" />
+            android:layout_alignRight="@+id/textView16"
+            android:layout_marginBottom="12dp"
+            app:srcCompat="@drawable/style" />
 
         <ImageView
             android:id="@+id/awardpic"
@@ -367,12 +372,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
 
-            android:gravity="right|center"
             android:ellipsize="marquee"
+            android:gravity="right|center"
             android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-
             android:padding="3dp"
+
+            android:singleLine="true"
             android:text="بازیگران"
             android:textAlignment="center"
             android:textColor="@android:color/white"

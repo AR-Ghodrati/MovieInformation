@@ -38,6 +38,8 @@
         android:layout_below="@+id/textView25"
         android:layout_marginTop="79dp"
         app:SpinKit_Color="@color/Switch"
-        app:SpinKit_Style="FadingCircle"></com.github.ybq.android.spinkit.SpinKitView>
+        app:SpinKit_Style="FadingCircle">
+
+    </com.github.ybq.android.spinkit.SpinKitView>
 
 </RelativeLayout>

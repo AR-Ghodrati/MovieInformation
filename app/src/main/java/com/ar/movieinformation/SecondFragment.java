@@ -4,9 +4,12 @@ package com.ar.movieinformation;
  * Created by alireza on 29/08/2017.
  */
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,21 @@ public class SecondFragment extends Fragment {
     RelativeLayout EnStoryBorder,faStoryBorder;
     ImageView FaStoryPic,EnStoryPic;
     TextView EnStorytext,FaStorytext;
+    Activity activity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.e("onAttachF2","Called");
+        this.activity=activity;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -75,10 +93,12 @@ public class SecondFragment extends Fragment {
 
 
     }
+
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
-        if (visible && getContext()!=null) {
-            SharedPreferences preferences = getContext().getSharedPreferences("movieinfosh", MODE_PRIVATE);
+        Log.e("setMenuVisibilityF2",""+visible);
+        if (visible && activity!=null) {
+            SharedPreferences preferences = activity.getSharedPreferences("movieinfosh", MODE_PRIVATE);
             if(!preferences.getBoolean("ShowCaseLASTFRAG",false))
             ShowCase();
         }
@@ -95,9 +115,9 @@ public class SecondFragment extends Fragment {
     }
     void ShowCase()
     {
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = activity.getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
 
-        new MaterialTapTargetPrompt.Builder(getActivity())
+        new MaterialTapTargetPrompt.Builder(activity)
                 .setTarget(EnStoryPic)
                 .setPrimaryText("داستان فیلم به زبان انگلیسی")
                 .setSecondaryText(" داستان فیلم از سایت نقد فارسی یا ترجمه شده داستان فیلم با مترجم گوگل در پایین داستان به زبان انگلیسی قرار دارد")

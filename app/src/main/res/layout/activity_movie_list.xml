@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/backgroundunSwith"
+        android:background="@color/backgroundSwith"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_movie_list"
         app:itemIconTint="@android:color/background_light"

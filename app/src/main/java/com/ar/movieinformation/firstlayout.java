@@ -1,7 +1,6 @@
 package com.ar.movieinformation;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -191,12 +190,38 @@ public class firstlayout extends AppCompatActivity{
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        if(isNewVerInstall(versionsc))
+        {
+            AlertDialog.Builder showUpdateNoti = new AlertDialog.Builder(this);
+            showUpdateNoti.setCancelable(false);
+            showUpdateNoti.setTitle("اطلاعات فیلم");
+                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اصافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل" + "\n"+"و برطرف شدن برخی از ایرادات برنامه"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
+                final String finalVersionsn = versionsn;
+                final int finalVersionsc = versionsc;
+                showUpdateNoti.setPositiveButton("بروز رسانی اطلاعات", (dialog, which) -> {
+
+                    try {
+                        DeleteDatabase();
+                        DeletePics();
+                        new ExtractData().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        editor.putBoolean("ShowUpdateText", true);
+                        editor.putString("AppVER", finalVersionsn);
+                        editor.putInt("AppCODE", finalVersionsc);
+                        editor.apply();
+                    }
+                });
+                showUpdateNoti.show();
+        }
         if(!getstatus.getBoolean("ShowUpdateText",false)) {
             AlertDialog.Builder showUpdateNoti = new AlertDialog.Builder(this);
             showUpdateNoti.setCancelable(false);
             showUpdateNoti.setTitle("اطلاعات فیلم");
             if (getstatus.getBoolean("isExtracted", false)) {
-                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن نقد فیلم به فیلم هایی که اطلاعات فارسی دارند" + "\n" + "2-اضافه شدن قابلیت دانلود برخی از فیلم ها" + "\n" + "3-اصلاح در نمایش نام برخی از فیلم ها" + "\n"+"4-اضافه شدن بخش مرتب سازی بر اساس آثار کارگردانان"+"\n"+"5-افزایش سرعت بروزرسانی اطلاعات"+"\n"+ "6-تغییرات در گرافیک برنامه و اضافه شدن چندین ویژگی دیگر و رفع برخی از مشکلات" +  "\n\n" + "برای بهره مندی از ویژگی های جدید باید اطلاعات اصلی بروز شود");
+                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اصافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل" + "\n"+"و برطرف شدن برخی از ایرادات برنامه"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
                 final String finalVersionsn = versionsn;
                 final int finalVersionsc = versionsc;
                 showUpdateNoti.setPositiveButton("بروز رسانی اطلاعات", (dialog, which) -> {
@@ -217,7 +242,7 @@ public class firstlayout extends AppCompatActivity{
                 });
                 showUpdateNoti.show();
             } else {
-                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن نقد فیلم به فیلم هایی که اطلاعات فارسی دارند" + "\n" + "2-اضافه شدن قابلیت دانلود برخی از فیلم ها" + "\n" + "3-اصلاح در نمایش نام برخی از فیلم ها" + "\n"+"4-اضافه شدن بخش مرتب سازی بر اساس آثار کارگردانان"+"\n"+"5-افزایش سرعت بروزرسانی اطلاعات"+"\n"+ "6-تغییرات در گرافیک برنامه و اضافه شدن چندین ویژگی دیگر و رفع برخی از مشکلات" +  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
+                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اصافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل" + "\n"+"و برطرف شدن برخی از ایرادات برنامه"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
                 final String finalVersionsn1 = versionsn;
                 final int finalVersionsc1 = versionsc;
                 showUpdateNoti.setPositiveButton("باشه", (dialog, which) -> {
@@ -263,6 +288,12 @@ public class firstlayout extends AppCompatActivity{
 
 
     }
+    private boolean isNewVerInstall(int VerCode) {
+        SharedPreferences reader = getSharedPreferences("movieinfosh", MODE_PRIVATE);
+        int AppCODE = reader.getInt("AppCODE", -1);
+        return AppCODE != -1 && VerCode > AppCODE;
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -272,7 +303,6 @@ public class firstlayout extends AppCompatActivity{
         spinKitView = (SpinKitView) findViewById(R.id.loading);
         SharedPreferences reader = getSharedPreferences("movieinfosh", MODE_PRIVATE);
         SharedPreferences.Editor editor = getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
-
         if (!reader.getBoolean("isExtracted", false)) {
             ShowForFirstTime();
         } else {
@@ -425,24 +455,14 @@ public class firstlayout extends AppCompatActivity{
             e.printStackTrace();
         }
         finally {
-            Runnable runnable= this::UNZIP;
-            runOnUiThread(runnable);
+          UNZIP();
+
 
         }
     }
 
     private void UNZIP()
     {
-        int prosses=0;
-        AlertDialog.Builder alert = new AlertDialog.Builder(firstlayout.this);
-        ProgressDialog builder= new ProgressDialog(firstlayout.this);
-
-            builder.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            builder.setTitle("لطفا صبر کنید");
-            builder.setMessage("در حال کپی کردن اطلاعات...");
-            builder.setCancelable(false);
-            builder.setMax(275);
-            builder.show();
 
             String zip=getApplicationContext().getFilesDir().getPath()+"/files.zip";
             String loc=getApplicationContext().getFilesDir().getPath()+"/";
@@ -463,22 +483,17 @@ public class firstlayout extends AppCompatActivity{
                         fout.flush();
                         fout.close();
                     }
-                    prosses++;
-                    builder.setProgress(prosses);
+
                 }
                 zin.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            builder.dismiss();
-            alert.setMessage("اطلاعات اولیه کپی شد");
-            alert.setCancelable(true);
-            alert.setPositiveButton("باشه", (dialog, which) -> {
-                File delete=new File(getApplicationContext().getFilesDir().getPath()+"/files.zip");
-                if(delete.exists())
-                    delete.delete();
-            });
-            alert.show();
+
+        File delete=new File(getApplicationContext().getFilesDir().getPath()+"/files.zip");
+        if(delete.exists())
+            delete.delete();
+
     }
 
 
