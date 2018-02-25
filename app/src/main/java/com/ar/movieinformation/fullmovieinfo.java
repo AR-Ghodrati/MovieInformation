@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,8 @@ public class fullmovieinfo extends AppCompatActivity {
 
         movie=(Movie) getIntent().getExtras().getSerializable("MOVIE");
         plot =(ShortPlot) getIntent().getExtras().getSerializable("PLOT");
-
+    try{
+        Log.e("loaded","onCreate");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_fullmovieinfo);
@@ -87,9 +89,14 @@ public class fullmovieinfo extends AppCompatActivity {
             tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
             tabLayout.getTabAt(1).setText("اطلاعات فیلم");
             tabLayout.getTabAt(2).setText("داستان فیلم");
-            tabLayout.getTabAt(4).setText("لینک دانلود");
+            tabLayout.getTabAt(3).setText("لینک دانلود");
             ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(3).setVisibility(View.GONE);
         }
+    }
+    catch (Exception ignored)
+    {
+
+    }
 
 
 

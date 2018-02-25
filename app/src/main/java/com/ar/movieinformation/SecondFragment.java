@@ -94,7 +94,7 @@ public class SecondFragment extends Fragment {
 
     }
 
-    public void setMenuVisibility(final boolean visible) {
+   /* public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         Log.e("setMenuVisibilityF2",""+visible);
         if (visible && activity!=null) {
@@ -103,6 +103,7 @@ public class SecondFragment extends Fragment {
             ShowCase();
         }
     }
+    */
     public static SecondFragment setdataandshow(ShortPlot movie) {
 
         SecondFragment f = new SecondFragment();

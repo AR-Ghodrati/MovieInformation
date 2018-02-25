@@ -1627,7 +1627,7 @@ public class movie_list extends AppCompatActivity
        new MaterialTapTargetPrompt.Builder(this)
                 .setTarget(findViewById(R.id.toolbar))
                 .setPrimaryText("بروزرسانی لیست فیلم")
-                .setSecondaryText("با پایین کشیدن صفحه می توانید لیست فیلم را بروزرسانی کنید")
+                .setSecondaryText("با پایین کشیدن صفحه می توانید لیست فیلم ها را بروزرسانی کنید")
                 .setAutoDismiss(true)
                 .setBackButtonDismissEnabled(true)
                 .setFocalColour(getResources().getColor(R.color.descriptionTextColor))

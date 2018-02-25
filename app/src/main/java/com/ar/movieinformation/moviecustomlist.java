@@ -32,7 +32,7 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
              MovieFATitle = (TextView) view.findViewById(R.id.secondLine);
              v=view.findViewById(R.id.viewyear);
              imageView = (ImageView) view.findViewById(R.id.icon);
-            transletaedPic= (ImageView) view.findViewById(R.id.transletaedPic);
+            transletaedPic= (ImageView) view.findViewById(R.id.IsTranlated);
              year = (TextView) view.findViewById(R.id.yearsort);
         }
     }
@@ -89,6 +89,7 @@ public class moviecustomlist extends RecyclerView.Adapter<moviecustomlist.MyView
         }
         if(movies.get(position).isTranslated())
             holder.transletaedPic.setVisibility(View.VISIBLE);
+
 
     }
 

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -147,6 +148,7 @@ public class firstfragmet extends Fragment {
     public static firstfragmet setdataandshow(Movie movie, ShortPlot plot) {
 
         firstfragmet f = new firstfragmet();
+        Log.e("loaded2","setdataandshow");
         Bundle b = new Bundle();
         b.putString("rank", movie.getImdbRating());
         b.putString("IMDBRANK", movie.getTop_250_Rank());

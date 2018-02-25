@@ -65,10 +65,8 @@
         android:layout_alignLeft="@+id/firstLine"
         android:layout_alignStart="@+id/firstLine"
         android:layout_below="@+id/firstLine"
-
         android:layout_marginEnd="3dp"
         android:layout_marginTop="15dp"
-        android:layout_toLeftOf="@+id/IsTranlated"
         android:layout_toStartOf="@+id/IsTranlated"
         android:ellipsize="marquee"
         android:gravity="right"
@@ -99,17 +97,6 @@
         android:id="@+id/IsTranlated"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_alignBottom="@+id/secondLine"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/secondLine"
-        android:visibility="gone"
-        app:srcCompat="@drawable/googletranslate" />
-
-    <ImageView
-        android:id="@+id/transletaedPic"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
         android:layout_alignBottom="@+id/secondLine"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"

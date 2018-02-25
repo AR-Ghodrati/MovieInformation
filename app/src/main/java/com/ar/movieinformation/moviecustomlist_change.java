@@ -30,7 +30,9 @@ public class moviecustomlist_change extends RecyclerView.Adapter<moviecustomlist
         public MyViewHolder(View view) {
             super(view);
             MovieENTitle = (TextView) view.findViewById(R.id.firstLinechange);
+            MovieENTitle.setSelected(true);
              MovieFATitle = (TextView) view.findViewById(R.id.secondLinechange);
+            MovieFATitle.setSelected(true);
              imageView = (ImageView) view.findViewById(R.id.iconchange);
             rankshow=(TextView)view.findViewById(R.id.rankshow);
             rankchange=(TextView)view.findViewById(R.id.rankghange);
