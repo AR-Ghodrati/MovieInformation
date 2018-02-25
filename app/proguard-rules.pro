@@ -20,6 +20,11 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 -keep class android.support.v7.widget.SearchView { *; }
+-ignorewarnings
+
+-keep class * {
+    public private *;
+}
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile

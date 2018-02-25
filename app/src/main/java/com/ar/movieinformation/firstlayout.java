@@ -41,7 +41,7 @@ public class firstlayout extends AppCompatActivity{
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-
+                DeletePics();
                 DeleteDatabase();
                 ExtractDatas();
                 Log.e("copyCalled", "called");
@@ -192,6 +192,7 @@ public class firstlayout extends AppCompatActivity{
         }
         if(isNewVerInstall(versionsc))
         {
+            Log.e("isNewVerInstall","called");
             AlertDialog.Builder showUpdateNoti = new AlertDialog.Builder(this);
             showUpdateNoti.setCancelable(false);
             showUpdateNoti.setTitle("اطلاعات فیلم");
@@ -303,11 +304,21 @@ public class firstlayout extends AppCompatActivity{
         spinKitView = (SpinKitView) findViewById(R.id.loading);
         SharedPreferences reader = getSharedPreferences("movieinfosh", MODE_PRIVATE);
         SharedPreferences.Editor editor = getSharedPreferences("movieinfosh", MODE_PRIVATE).edit();
-        if (!reader.getBoolean("isExtracted", false)) {
+        PackageManager manager = getApplicationContext().getPackageManager();
+        PackageInfo info = null;
+        String versionsn="";
+        int versionsc=0;
+        try {
+            info = manager.getPackageInfo(
+                    getApplicationContext().getPackageName(), 0);
+            versionsc=info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (!reader.getBoolean("isExtracted", false )||isNewVerInstall(versionsc)) {
             ShowForFirstTime();
         } else {
             new LoadData().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 
         }
     }

@@ -8,8 +8,8 @@ android {
         applicationId 'com.arstudio.movieinformation'
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 6
-        versionName '2.0.1'
+        versionCode 7
+        versionName '2.5.2'
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -17,6 +17,7 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -31,6 +32,10 @@ android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
+        }
+        dexOptions {
+            javaMaxHeapSize "2048M"
+            jumboMode true
         }
     }
 
