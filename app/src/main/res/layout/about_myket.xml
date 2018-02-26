@@ -71,7 +71,7 @@
             android:layout_below="@+id/aboutapp"
             android:layout_marginTop="21dp"
             android:lineSpacingExtra="3sp"
-            android:text="اطلاعات اصلی برنامه از وب سایت ای ام دی بی و اطلاعات فارسی از وب سایت نقد فارسی بروز می شود."
+            android:text="اطلاعات اصلی برنامه از وب سایت ای ام دی بی و اطلاعات فارسی از وب سایت نقد فارسی  و مترجم گوگل بروز می شود."
             android:textColor="@android:color/background_light" />
 
         <TextView
@@ -100,7 +100,8 @@
             android:lineSpacingExtra="3sp"
             android:text="پوستر های دریافت شده از سایت نقد فارسی کیفیت بالاتری نسبت به سایت ای ام دی بی دارند."
             android:textColor="@android:color/background_light"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView19"

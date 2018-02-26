@@ -102,17 +102,22 @@ public class firstfragmet extends Fragment {
         // smalldata.setGravity(Gravity.CENTER);
         imdbRating.setGravity(Gravity.CENTER);
 
-        metaRatingView.setOnClickListener(v1 -> {
+        layout_meta.setOnClickListener(v13 -> {
+
+
+            String MovieTitle=movie.getTitle().trim().replace(' ', '-').toLowerCase().replaceAll("[^0-9-a-z]","");
             Intent meta = new Intent(Intent.ACTION_VIEW);
-            meta.setData(Uri.parse("www.metacritic.com/movie/" + movie.getTitle().replaceAll(" ", "-")));
+            meta.setData(Uri.parse("http://www.metacritic.com/movie/" + MovieTitle));
             Intent chooserIntent = Intent.createChooser(meta, "برای باز کردن سایت metacritic یک مرورگر انتخاب کنید:");
+          //  Log.e("metacriticURL",meta.getData().toString());
             if (meta.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(chooserIntent);
             }
+
         });
         layout_tomato.setOnClickListener(v12 -> {
             Intent tomato = new Intent(Intent.ACTION_VIEW);
-            tomato.setData(Uri.parse("https://www.rottentomatoes.com/m/" + movie.getTitle().replaceAll(" ", "_")));
+            tomato.setData(Uri.parse("https://www.rottentomatoes.com/m/" + movie.getTitle().trim().replaceAll(" ", "_")));
             Intent chooserIntent = Intent.createChooser(tomato, "برای باز کردن سایت rottentomatoes یک مرورگر انتخاب کنید:");
             if (tomato.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(chooserIntent);

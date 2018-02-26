@@ -6,7 +6,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -492,8 +491,9 @@ public class movie_list extends AppCompatActivity
                 public void onClick(View view, int position) {
 
                     Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                    gotopage.putExtra("MOVIE",MovieListTemp.get(position));
-                    gotopage.putExtra("PLOT",MovieData.get(MovieListTemp.get(position).getTitle()));
+                   // gotopage.putExtra("MOVIE",MovieListTemp.get(position));
+                   // gotopage.putExtra("PLOT",MovieData.get(MovieListTemp.get(position).getTitle()));
+                    gotopage.putExtra("MoviePosition",position);
                     startActivity(gotopage);
 
                 }
@@ -524,10 +524,12 @@ public class movie_list extends AppCompatActivity
 
     private void changelist()
     {
+        MovieListTemp.clear();
+        MovieListTemp.addAll(MovieList);
         final SharedPreferences.Editor shared=getSharedPreferences("movieinfosh",MODE_PRIVATE).edit();
         final SharedPreferences getstatus=getSharedPreferences("movieinfosh",MODE_PRIVATE) ;
-        final String[]changerank=new String[MovieList.size()];
-        final String[]chngeantiaz=new String[MovieList.size()];
+        final String[]changerank=new String[MovieListTemp.size()];
+        final String[]chngeantiaz=new String[MovieListTemp.size()];
         final int[] counterchange = {0};
         Thread thread=new Thread(() -> {
             if(!getstatus.getBoolean("Changelist_alert",false)) {
@@ -545,8 +547,8 @@ public class movie_list extends AppCompatActivity
             for (int i = 0; i <MovieList.size() ; i++) {
                 Movie oldrank=MovieListOld.get(MovieList.get(i).getTitle().trim());
                 if(oldrank!=null) {
-                    chngeantiaz[i]=""+(Double.parseDouble(MovieList.get(i).getImdbRating())-Double.parseDouble(MovieListOld.get(MovieList.get(i).getTitle().trim()).getImdbRating()));
-                    changerank[i] = "" + (Double.parseDouble(MovieList.get(i).getTop_250_Rank()) - Double.parseDouble(MovieListOld.get(MovieList.get(i).getTitle().trim()).getTop_250_Rank()));
+                    chngeantiaz[i]=""+(Double.parseDouble(MovieListTemp.get(i).getImdbRating())-Double.parseDouble(MovieListOld.get(MovieListTemp.get(i).getTitle().trim()).getImdbRating()));
+                    changerank[i] = "" + (Double.parseDouble(MovieListTemp.get(i).getTop_250_Rank()) - Double.parseDouble(MovieListOld.get(MovieListTemp.get(i).getTitle().trim()).getTop_250_Rank()));
                 }
                 else {
                     chngeantiaz[i]=null;
@@ -555,15 +557,16 @@ public class movie_list extends AppCompatActivity
 
             }
 
-            moviecustomlist_change moviecustomlist_change=new moviecustomlist_change(MovieList,changerank,chngeantiaz);
+            moviecustomlist_change moviecustomlist_change=new moviecustomlist_change(MovieListTemp,changerank,chngeantiaz);
             AlphaInAnimationAdapter alphaInAnimationAdapter=new AlphaInAnimationAdapter(moviecustomlist_change,0.5f);
             Movielist.setAdapter(alphaInAnimationAdapter);
             listener2=new RecyclerTouchListener(getApplicationContext(), Movielist, new ClickListner() {
                 @Override
                 public void onClick(View view, int position) {
                     Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                    gotopage.putExtra("MOVIE",MovieList.get(position));
-                    gotopage.putExtra("PLOT",MovieData.get(MovieList.get(position).getTitle()));
+                   // gotopage.putExtra("MOVIE",MovieList.get(position));
+                   // gotopage.putExtra("PLOT",MovieData.get(MovieList.get(position).getTitle()));
+                    gotopage.putExtra("MoviePosition",position);
 
                     startActivity(gotopage);
                 }
@@ -592,12 +595,15 @@ public class movie_list extends AppCompatActivity
         thread.run();
 
     }
+    public static final Vector<Movie> moviesdir = new Vector<>();
     private void Dirshow()
     {
+        MovieListTemp.clear();
+        MovieListTemp.addAll(MovieList);
 
         final Vector<String>dirnames=new Vector<>();
-        for (int i = 0; i <MovieList.size() ; i++) {
-            String dirname=MovieData.get(MovieList.get(i).getTitle().trim()).getDirector();
+        for (int i = 0; i <MovieListTemp.size() ; i++) {
+            String dirname=MovieData.get(MovieListTemp.get(i).getTitle().trim()).getDirector();
             if (!dirnames.contains(dirname))
                 dirnames.addElement(dirname);
         }
@@ -610,11 +616,11 @@ public class movie_list extends AppCompatActivity
             public void onClick(View view, int position) {
                 dirshow=true;
                 setTitle("آثار "+dirnames.elementAt(position));
-                final Vector<Movie> moviesdir = new Vector<>();
-                for (int i = 0; i <MovieList.size() ; i++) {
-                   String MovieDirector_name = MovieData.get(MovieList.get(i).getTitle().trim()).getDirector();
+                moviesdir.clear();
+                for (int i = 0; i <MovieListTemp.size() ; i++) {
+                   String MovieDirector_name = MovieData.get(MovieListTemp.get(i).getTitle().trim()).getDirector();
                     if (MovieDirector_name.equals(dirnames.elementAt(position))) {
-                        moviesdir.addElement(MovieList.get(i));
+                        moviesdir.addElement(MovieListTemp.get(i));
                     }
                 }
 
@@ -628,9 +634,10 @@ public class movie_list extends AppCompatActivity
                     @Override
                     public void onClick(View view, int position) {
                         Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                        gotopage.putExtra("MOVIE",moviesdir.get(position));
-                        gotopage.putExtra("PLOT",MovieData.get(moviesdir.get(position).getTitle()));
-
+                       // gotopage.putExtra("MOVIE",moviesdir.get(position));
+                       // gotopage.putExtra("PLOT",MovieData.get(moviesdir.get(position).getTitle()));
+                        gotopage.putExtra("MoviePosition",position);
+                        gotopage.putExtra("MovieListType","Dir");
                         startActivity(gotopage);
                     }
 
@@ -697,52 +704,45 @@ public class movie_list extends AppCompatActivity
             if (getstatus.getInt("StartupCount", 0) % 3 == 0 && !getstatus.getBoolean("RateState", false)) {
                 doubleBackToExitPressedOncecheck = true;
                 alertDialog.setMessage("به برنامه امتیاز می دهید؟");
-                alertDialog.setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (checkconectivity()) {
+                alertDialog.setPositiveButton("بله", (dialog, which) -> {
+                    if (checkconectivity()) {
 
-                        Uri uri = Uri.parse("iranapps://app/com.arstudio.movieinformation?a=comment&r=5");
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setPackage("ir.tgbs.android.iranapp");
-                        intent.setData(uri);
+                   /* Uri uri = Uri.parse("iranapps://app/com.arstudio.movieinformation?a=comment&r=5");
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setPackage("ir.tgbs.android.iranapp");
+                    intent.setData(uri);
+                    */
+
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    String url = "myket://comment?id=com.arstudio.movieinformation";
+                    intent.setData(Uri.parse(url));
 
                      /*
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        String url = "myket://comment?id=com.arstudio.movieinformation";
-                        intent.setData(Uri.parse(url));
+                        intent.setPackage("com.hrm.android.market");
+                        intent.setData(Uri.parse("market://rate?id=" + "com.arstudio.movieinformation"));
                       */
-                         /*
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setPackage("com.hrm.android.market");
-                            intent.setData(Uri.parse("market://rate?id=" + "com.arstudio.movieinformation"));
-                          */
-                            if (intent.resolveActivity(getPackageManager()) != null) {
-                                startActivity(intent);
-                                setstatus.putBoolean("RateState", true);
-                                setstatus.apply();
-                            } else {
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                            setstatus.putBoolean("RateState", true);
+                            setstatus.apply();
+                        } else {
 
-                        Toast.makeText(getApplicationContext(), "برنامه ایران اپس بر روی دستگاه شما نصب نیست  ", Toast.LENGTH_LONG).show();
-                          /*
-                                Uri uri1 = Uri.parse("http://iranapps.ir/app/com.arstudio.movieinformation?a=comment&r=5");
-                        Intent intent1 = new Intent(Intent.ACTION_VIEW);
-                        intent1.setData(uri1);
-                        startActivity(intent1);
-                        */
-                               // Toast.makeText(getApplicationContext(), "برنامه اول مارکت بر روی دستگاه شما نصب نیست ", Toast.LENGTH_LONG).show();
-                                //Toast.makeText(getApplicationContext(),"برنامه مایکت بر روی دستگاه شما نصب نیست ",Toast.LENGTH_LONG).show();
-                            }
-                        } else
-                            Toast.makeText(movie_list.this, "برای امتیاز دادن به اینترنت متصل شوید", Toast.LENGTH_LONG).show();
-                    }
+                   // Toast.makeText(getApplicationContext(), "برنامه ایران اپس بر روی دستگاه شما نصب نیست  ", Toast.LENGTH_LONG).show();
+                      /*
+                            Uri uri1 = Uri.parse("http://iranapps.ir/app/com.arstudio.movieinformation?a=comment&r=5");
+                    Intent intent1 = new Intent(Intent.ACTION_VIEW);
+                    intent1.setData(uri1);
+                    startActivity(intent1);
+                    */
+                           // Toast.makeText(getApplicationContext(), "برنامه اول مارکت بر روی دستگاه شما نصب نیست ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"برنامه مایکت بر روی دستگاه شما نصب نیست ",Toast.LENGTH_LONG).show();
+                        }
+                    } else
+                        Toast.makeText(movie_list.this, "برای امتیاز دادن به اینترنت متصل شوید", Toast.LENGTH_LONG).show();
                 });
-                alertDialog.setNegativeButton("بعدا امتیاز می دهم", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
+                alertDialog.setNegativeButton("بعدا امتیاز می دهم", (dialog, which) -> finish());
                 /*alertDialog.setNeutralButton("سایر برنامه ها", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -867,6 +867,8 @@ public class movie_list extends AppCompatActivity
         return true;
     }
 
+   public static Vector<Movie> SearchObj = new Vector<>();
+
     @Override
       public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -875,13 +877,18 @@ public class movie_list extends AppCompatActivity
         MenuItemCompat.setOnActionExpandListener(searchItem, new SearchViewExpandListener(this));
         MenuItemCompat.setActionView(searchItem, searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            Vector<Movie> SeachObj = new Vector<>();
+
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
+
+                SearchObj.clear();
+                MovieListTemp.clear();
+                MovieListTemp.addAll(MovieList);
+
                 if (listener1 != null)
                     Movielist.removeOnItemTouchListener(listener1);
                 if (listener2 != null)
@@ -898,7 +905,7 @@ public class movie_list extends AppCompatActivity
                     Movielist.removeOnItemTouchListener(listener7);
                 if (listener8 != null)
                     Movielist.removeOnItemTouchListener(listener8);
-                SeachObj.clear();
+                SearchObj.clear();
                 String text;
                 boolean check = false;
                 text = newText.toLowerCase(Locale.getDefault());
@@ -911,7 +918,7 @@ public class movie_list extends AppCompatActivity
                     for (int i = 0; i < MovieListTemp.size(); i++) {
                         if (MovieListTemp.get(i).getTitle().trim().toLowerCase(Locale.getDefault()).contains(text)) {
                             {
-                                SeachObj.addElement(MovieListTemp.get(i));
+                                SearchObj.addElement(MovieListTemp.get(i));
                                 check = true;
                             }
                         }
@@ -921,20 +928,22 @@ public class movie_list extends AppCompatActivity
                         String faName = MovieListTemp.get(i).getTitleFa();
                         if (faName != null && faName.trim().toLowerCase(Locale.getDefault()).contains(text)) {
                             {
-                                SeachObj.addElement(MovieListTemp.get(i));
+                                SearchObj.addElement(MovieListTemp.get(i));
                             }
                         }
                     }
                         if (check) {
                             if (Check != 5) {
-                                moviecustomlist movielist = new moviecustomlist(SeachObj);
+                                moviecustomlist movielist = new moviecustomlist(SearchObj);
                                 Movielist.setAdapter(movielist);
                                 listener5 = new RecyclerTouchListener(getApplicationContext(), Movielist, new ClickListner() {
                                     @Override
                                     public void onClick(View view, int position) {
                                         Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                                        gotopage.putExtra("MOVIE",SeachObj.get(position));
-                                        gotopage.putExtra("PLOT",MovieData.get(SeachObj.get(position).getTitle()));
+                                        //gotopage.putExtra("MOVIE",SearchObj.get(position));
+                                      //  gotopage.putExtra("PLOT",MovieData.get(SearchObj.get(position).getTitle()));
+                                        gotopage.putExtra("MoviePosition",position);
+                                        gotopage.putExtra("MovieListType","Search");
                                         startActivity(gotopage);
                                     }
 
@@ -946,27 +955,32 @@ public class movie_list extends AppCompatActivity
                                 Movielist.addOnItemTouchListener(listener5);
                             }
                             if (Check == 5) {
+
+
+
                                 final String[]changerank=new String[MovieListTemp.size()];
                                 final String[]chngeantiaz=new String[MovieListTemp.size()];
                                 for (int j = 0; j <MovieListTemp.size() ; j++) {
-                                    Movie oldrank=MovieListOld.get(MovieList.get(j).getTitle().trim());
+                                    Movie oldrank=MovieListOld.get(MovieListTemp.get(j).getTitle().trim());
                                     if(oldrank!=null) {
-                                        chngeantiaz[j]=""+(Double.parseDouble(MovieList.get(j).getImdbRating())-Double.parseDouble(MovieListOld.get(MovieList.get(j).getTitle().trim()).getImdbRating()));
-                                        changerank[j] = "" + (Double.parseDouble(MovieList.get(j).getTop_250_Rank()) - Double.parseDouble(MovieListOld.get(MovieList.get(j).getTitle().trim()).getTop_250_Rank()));
+                                        chngeantiaz[j]=""+(Double.parseDouble(MovieListTemp.get(j).getImdbRating())-Double.parseDouble(MovieListOld.get(MovieListTemp.get(j).getTitle().trim()).getImdbRating()));
+                                        changerank[j] = "" + (Double.parseDouble(MovieListTemp.get(j).getTop_250_Rank()) - Double.parseDouble(MovieListOld.get(MovieListTemp.get(j).getTitle().trim()).getTop_250_Rank()));
                                     }
                                     else {
                                         chngeantiaz[j]=null;
                                         changerank[j] = null;
                                     }
                                 }
-                                moviecustomlist_change moviecustomlist_change = new moviecustomlist_change(SeachObj,changerank,chngeantiaz);
+                                moviecustomlist_change moviecustomlist_change = new moviecustomlist_change(SearchObj,changerank,chngeantiaz);
                                 Movielist.setAdapter(moviecustomlist_change);
                                 listener6 = new RecyclerTouchListener(getApplicationContext(), Movielist, new ClickListner() {
                                     @Override
                                     public void onClick(View view, int position) {
                                         Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                                        gotopage.putExtra("MOVIE",SeachObj.get(position));
-                                        gotopage.putExtra("PLOT",MovieData.get(SeachObj.get(position).getTitle()));
+                                      //  gotopage.putExtra("MOVIE",SearchObj.get(position));
+                                      //  gotopage.putExtra("PLOT",MovieData.get(SearchObj.get(position).getTitle()));
+                                        gotopage.putExtra("MoviePosition",position);
+                                        gotopage.putExtra("MovieListType","Search");
                                         startActivity(gotopage);
                                     }
 
@@ -979,7 +993,7 @@ public class movie_list extends AppCompatActivity
                             }
                         } else {
                             if (Check != 5) {
-                                moviecustomlist movielist = new moviecustomlist(SeachObj);
+                                moviecustomlist movielist = new moviecustomlist(SearchObj);
                                 AlphaInAnimationAdapter alphaInAnimationAdapter=new AlphaInAnimationAdapter(movielist);
                                 Movielist.setAdapter(alphaInAnimationAdapter);
                                 Movielist.setAdapter(movielist);
@@ -987,8 +1001,10 @@ public class movie_list extends AppCompatActivity
                                     @Override
                                     public void onClick(View view, int position) {
                                         Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                                        gotopage.putExtra("MOVIE",SeachObj.get(position));
-                                        gotopage.putExtra("PLOT",MovieData.get(SeachObj.get(position).getTitle()));
+                                      //  gotopage.putExtra("MOVIE",SearchObj.get(position));
+                                      //  gotopage.putExtra("PLOT",MovieData.get(SearchObj.get(position).getTitle()));
+                                        gotopage.putExtra("MoviePosition",position);
+                                        gotopage.putExtra("MovieListType","Search");
                                         startActivity(gotopage);
                                     }
 
@@ -1002,25 +1018,27 @@ public class movie_list extends AppCompatActivity
                                 final String[]changerank=new String[MovieListTemp.size()];
                                 final String[]chngeantiaz=new String[MovieListTemp.size()];
                                 for (int j = 0; j <MovieListTemp.size() ; j++) {
-                                    Movie oldrank=MovieListOld.get(MovieList.get(j).getTitle().trim());
+                                    Movie oldrank=MovieListOld.get(MovieListTemp.get(j).getTitle().trim());
                                     if(oldrank!=null) {
-                                        chngeantiaz[j]=""+(Double.parseDouble(MovieList.get(j).getImdbRating())-Double.parseDouble(MovieListOld.get(MovieList.get(j).getTitle().trim()).getImdbRating()));
-                                        changerank[j] = "" + (Double.parseDouble(MovieList.get(j).getTop_250_Rank()) - Double.parseDouble(MovieListOld.get(MovieList.get(j).getTitle().trim()).getTop_250_Rank()));
+                                        chngeantiaz[j]=""+(Double.parseDouble(MovieListTemp.get(j).getImdbRating())-Double.parseDouble(MovieListOld.get(MovieListTemp.get(j).getTitle().trim()).getImdbRating()));
+                                        changerank[j] = "" + (Double.parseDouble(MovieListTemp.get(j).getTop_250_Rank()) - Double.parseDouble(MovieListOld.get(MovieListTemp.get(j).getTitle().trim()).getTop_250_Rank()));
                                     }
                                     else {
                                         chngeantiaz[j]=null;
                                         changerank[j] = null;
                                     }
                                 }
-                                moviecustomlist_change moviecustomlist_change = new moviecustomlist_change(SeachObj,changerank,chngeantiaz);
+                                moviecustomlist_change moviecustomlist_change = new moviecustomlist_change(SearchObj,changerank,chngeantiaz);
                                 AlphaInAnimationAdapter alphaInAnimationAdapter=new AlphaInAnimationAdapter(moviecustomlist_change);
                                 Movielist.setAdapter(alphaInAnimationAdapter);
                                 listener8 = new RecyclerTouchListener(getApplicationContext(), Movielist, new ClickListner() {
                                     @Override
                                     public void onClick(View view, int position) {
                                         Intent gotopage = new Intent(movie_list.this, fullmovieinfo.class);
-                                        gotopage.putExtra("MOVIE",SeachObj.get(position));
-                                        gotopage.putExtra("PLOT",MovieData.get(SeachObj.get(position).getTitle()));
+                                       // gotopage.putExtra("MOVIE",SearchObj.get(position));
+                                       // gotopage.putExtra("PLOT",MovieData.get(SearchObj.get(position).getTitle()));
+                                        gotopage.putExtra("MoviePosition",position);
+                                        gotopage.putExtra("MovieListType","Search");
                                         startActivity(gotopage);
                                     }
 
@@ -1493,7 +1511,7 @@ public class movie_list extends AppCompatActivity
     }
     */
     private StringRequest SendRequset(String MovieName,String MovieYear) {
-        String ApiKey = "48c378c2";
+        String ApiKey = BuildConfig.OMDB_API_KEY;
         String OMDBURL = "http://www.omdbapi.com";
         String IdKey = "i";
         String TitleKey = "t";
@@ -1535,7 +1553,7 @@ public class movie_list extends AppCompatActivity
 
     private void getplotTranslate(String MovieName,String plot)
     {
-        String URL="https://api.beyond-dev.ir/translate?from=en&to=fa&text="+plot.replaceAll(" ","+")+"&simple=normal";
+        String URL=BuildConfig.Google_Translate_Api_URL+plot.replaceAll(" ","+")+"&simple=normal";
         Log.e("URLMovieFarsiStory",URL);
         StringRequest stringRequest=new StringRequest(Request.Method.GET,URL,response ->
         {
@@ -1562,7 +1580,7 @@ public class movie_list extends AppCompatActivity
     }
     private void getMovieFarsiName(String EnName,int index)
     {
-        String URL="https://api.beyond-dev.ir/translate?from=en&to=fa&text="+EnName.replaceAll(" ","+")+"&simple=normal";
+        String URL=BuildConfig.Google_Translate_Api_URL+EnName.replaceAll(" ","+")+"&simple=normal";
        Log.e("URLMovieFarsiName",URL);
         StringRequest stringRequest=new StringRequest(Request.Method.GET,URL,response ->
         {
@@ -1596,7 +1614,7 @@ public class movie_list extends AppCompatActivity
     }
     private void getMovieFarsiAwards(String Awards,String MovieName)
     {
-        String URL="https://api.beyond-dev.ir/translate?from=en&to=fa&text="+Awards.replaceAll("&"," and ").replaceAll(" ","+")+"&simple=normal";
+        String URL=BuildConfig.Google_Translate_Api_URL+Awards.replaceAll("&"," and ").replaceAll(" ","+")+"&simple=normal";
         Log.e("URLMovieFarsiAwards",URL);
         StringRequest stringRequest=new StringRequest(Request.Method.GET,URL,response ->
         {

@@ -32,10 +32,6 @@ public class fullmovieinfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        movie=(Movie) getIntent().getExtras().getSerializable("MOVIE");
-        plot =(ShortPlot) getIntent().getExtras().getSerializable("PLOT");
-    try{
         Log.e("loaded","onCreate");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -49,59 +45,77 @@ public class fullmovieinfo extends AppCompatActivity {
         tabLayout=(TabLayout) findViewById(R.id.tabs);
 
 
-        if(plot.getNaghed()==null || plot.getNaghed().equals(""))
-            haveNaghed=false;
-        if(plot.getDownloadLinks()!=null && plot.getDownloadLinks().size()==0)
-            haveDownloadLink =false;
+        int MoviePosition=getIntent().getExtras().getInt("MoviePosition",-1);
+        String type=getIntent().getExtras().getString("MovieListType","");
 
-
-        if(!haveDownloadLink && !haveNaghed)
+        if(MoviePosition!=-1)
         {
-            pager.setAdapter(new MyPagerAdapterWithoutDownloadLink_Naghed(getSupportFragmentManager()));
-            tabLayout.setupWithViewPager(pager);
-            tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
-            tabLayout.getTabAt(1).setText("اطلاعات فیلم");
-            tabLayout.getTabAt(2).setText("داستان فیلم");
+            if(type.equals("")) {
+                movie = movie_list.MovieListTemp.get(MoviePosition);
+                plot = movie_list.MovieData.get(movie.getTitle());
+            }
+            else if(type.equals("Dir"))
+            {
+                movie = movie_list.moviesdir.get(MoviePosition);
+                plot = movie_list.MovieData.get(movie.getTitle());
+            }
+            else {
+                movie = movie_list.SearchObj.get(MoviePosition);
+                plot = movie_list.MovieData.get(movie.getTitle());
+            }
+            try{
+                if(plot.getNaghed()==null || plot.getNaghed().equals(""))
+                    haveNaghed=false;
+                if(plot.getDownloadLinks()!=null && plot.getDownloadLinks().size()==0)
+                    haveDownloadLink =false;
 
+
+                if(!haveDownloadLink && !haveNaghed)
+                {
+                    pager.setAdapter(new MyPagerAdapterWithoutDownloadLink_Naghed(getSupportFragmentManager()));
+                    tabLayout.setupWithViewPager(pager);
+                    tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
+                    tabLayout.getTabAt(1).setText("اطلاعات فیلم");
+                    tabLayout.getTabAt(2).setText("داستان فیلم");
+
+                }
+                else  if (haveDownloadLink && haveNaghed) {
+                    pager.setAdapter(new MyPagerAdapterAll(getSupportFragmentManager()));
+                    tabLayout.setupWithViewPager(pager);
+                    tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
+                    tabLayout.getTabAt(1).setText("اطلاعات فیلم");
+                    tabLayout.getTabAt(2).setText("داستان فیلم");
+                    tabLayout.getTabAt(3).setText("نقد فیلم");
+                    tabLayout.getTabAt(4).setText("لینک دانلود");
+                }
+                else if(!haveDownloadLink)
+                {
+                    pager.setAdapter(new MyPagerAdapterWithoutDownloadLink(getSupportFragmentManager()));
+                    tabLayout.setupWithViewPager(pager);
+                    tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
+                    tabLayout.getTabAt(1).setText("اطلاعات فیلم");
+                    tabLayout.getTabAt(2).setText("داستان فیلم");
+                    tabLayout.getTabAt(3).setText("نقد فیلم");
+                    ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(4).setVisibility(View.GONE);
+                }
+                else if (!haveNaghed) {
+                    pager.setAdapter(new MyPagerAdapterWithoutNaghed(getSupportFragmentManager()));
+                    tabLayout.setupWithViewPager(pager);
+                    tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
+                    tabLayout.getTabAt(1).setText("اطلاعات فیلم");
+                    tabLayout.getTabAt(2).setText("داستان فیلم");
+                    tabLayout.getTabAt(3).setText("لینک دانلود");
+                    ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(3).setVisibility(View.GONE);
+                }
+            }
+            catch (Exception ignored)
+            {
+
+            }
+            Show();
         }
-        else  if (haveDownloadLink && haveNaghed) {
-            pager.setAdapter(new MyPagerAdapterAll(getSupportFragmentManager()));
-            tabLayout.setupWithViewPager(pager);
-            tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
-            tabLayout.getTabAt(1).setText("اطلاعات فیلم");
-            tabLayout.getTabAt(2).setText("داستان فیلم");
-            tabLayout.getTabAt(3).setText("نقد فیلم");
-            tabLayout.getTabAt(4).setText("لینک دانلود");
-        }
-        else if(!haveDownloadLink)
-        {
-            pager.setAdapter(new MyPagerAdapterWithoutDownloadLink(getSupportFragmentManager()));
-            tabLayout.setupWithViewPager(pager);
-            tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
-            tabLayout.getTabAt(1).setText("اطلاعات فیلم");
-            tabLayout.getTabAt(2).setText("داستان فیلم");
-            tabLayout.getTabAt(3).setText("نقد فیلم");
-            ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(4).setVisibility(View.GONE);
-        }
-        else if (!haveNaghed) {
-            pager.setAdapter(new MyPagerAdapterWithoutNaghed(getSupportFragmentManager()));
-            tabLayout.setupWithViewPager(pager);
-            tabLayout.getTabAt(0).setText("اطلاعات امتیازی");
-            tabLayout.getTabAt(1).setText("اطلاعات فیلم");
-            tabLayout.getTabAt(2).setText("داستان فیلم");
-            tabLayout.getTabAt(3).setText("لینک دانلود");
-            ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(3).setVisibility(View.GONE);
-        }
-    }
-    catch (Exception ignored)
-    {
-
-    }
 
 
-
-
-        Show();
     }
     private void Show()
     {
