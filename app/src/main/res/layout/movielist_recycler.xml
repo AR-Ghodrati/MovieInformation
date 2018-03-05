@@ -85,7 +85,8 @@
 
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:gravity="center|center_vertical"
+        android:layout_marginTop="-2dp"
+        android:gravity="center|center_vertical|top"
         android:text="2017"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"

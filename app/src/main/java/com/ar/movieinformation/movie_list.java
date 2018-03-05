@@ -603,9 +603,12 @@ public class movie_list extends AppCompatActivity
 
         final Vector<String>dirnames=new Vector<>();
         for (int i = 0; i <MovieListTemp.size() ; i++) {
-            String dirname=MovieData.get(MovieListTemp.get(i).getTitle().trim()).getDirector();
-            if (!dirnames.contains(dirname))
-                dirnames.addElement(dirname);
+            ShortPlot movie=MovieData.get(MovieListTemp.get(i).getTitle().trim());
+            if(movie!=null) {
+                String dirname =movie.getDirector();
+                if (!dirnames.contains(dirname))
+                    dirnames.addElement(dirname);
+            }
         }
 
         final moviecustomlist_directors moviecustomlist_directors=new moviecustomlist_directors(dirnames);
@@ -618,9 +621,12 @@ public class movie_list extends AppCompatActivity
                 setTitle("آثار "+dirnames.elementAt(position));
                 moviesdir.clear();
                 for (int i = 0; i <MovieListTemp.size() ; i++) {
-                   String MovieDirector_name = MovieData.get(MovieListTemp.get(i).getTitle().trim()).getDirector();
-                    if (MovieDirector_name.equals(dirnames.elementAt(position))) {
-                        moviesdir.addElement(MovieListTemp.get(i));
+                    ShortPlot movie=MovieData.get(MovieListTemp.get(i).getTitle().trim());
+                    if(movie!=null) {
+                        String MovieDirector_name = movie.getDirector();
+                        if (MovieDirector_name.equals(dirnames.elementAt(position))) {
+                            moviesdir.addElement(MovieListTemp.get(i));
+                        }
                     }
                 }
 
@@ -707,37 +713,43 @@ public class movie_list extends AppCompatActivity
                 alertDialog.setPositiveButton("بله", (dialog, which) -> {
                     if (checkconectivity()) {
 
-                   /* Uri uri = Uri.parse("iranapps://app/com.arstudio.movieinformation?a=comment&r=5");
+                    Uri uri = Uri.parse("iranapps://app/com.arstudio.movieinformation?a=comment&r=5");
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setPackage("ir.tgbs.android.iranapp");
                     intent.setData(uri);
+
+
+
+
+                    /*Intent intent = new Intent(Intent.ACTION_VIEW);
+                    String url = "myket://comment?id=com.arstudio.movieinformation";
+                    intent.setData(Uri.parse(url));
                     */
 
 
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    String url = "myket://comment?id=com.arstudio.movieinformation";
-                    intent.setData(Uri.parse(url));
 
-                     /*
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                       /* Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setPackage("com.hrm.android.market");
                         intent.setData(Uri.parse("market://rate?id=" + "com.arstudio.movieinformation"));
-                      */
+                        */
+
                         if (intent.resolveActivity(getPackageManager()) != null) {
                             startActivity(intent);
                             setstatus.putBoolean("RateState", true);
                             setstatus.apply();
                         } else {
 
-                   // Toast.makeText(getApplicationContext(), "برنامه ایران اپس بر روی دستگاه شما نصب نیست  ", Toast.LENGTH_LONG).show();
-                      /*
-                            Uri uri1 = Uri.parse("http://iranapps.ir/app/com.arstudio.movieinformation?a=comment&r=5");
+                   Toast.makeText(getApplicationContext(), "برنامه ایران اپس بر روی دستگاه شما نصب نیست  ", Toast.LENGTH_LONG).show();
+
+                         /*   Uri uri1 = Uri.parse("http://iranapps.ir/app/com.arstudio.movieinformation?a=comment&r=5");
                     Intent intent1 = new Intent(Intent.ACTION_VIEW);
                     intent1.setData(uri1);
                     startActivity(intent1);
                     */
-                           // Toast.makeText(getApplicationContext(), "برنامه اول مارکت بر روی دستگاه شما نصب نیست ", Toast.LENGTH_LONG).show();
-                            Toast.makeText(getApplicationContext(),"برنامه مایکت بر روی دستگاه شما نصب نیست ",Toast.LENGTH_LONG).show();
+
+                          //  Toast.makeText(getApplicationContext(), "برنامه اول مارکت بر روی دستگاه شما نصب نیست ", Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getApplicationContext(),"برنامه مایکت بر روی دستگاه شما نصب نیست ",Toast.LENGTH_LONG).show();
                         }
                     } else
                         Toast.makeText(movie_list.this, "برای امتیاز دادن به اینترنت متصل شوید", Toast.LENGTH_LONG).show();

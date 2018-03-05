@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ar.movieinformation.OMDB.Model.ShortPlot;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -34,6 +35,7 @@ public class moviecustomlist_directors extends RecyclerView.Adapter<moviecustoml
         public MyViewHolder(View view) {
             super(view);
              MovieENTitle = (TextView) view.findViewById(R.id.firstLinedir);
+            MovieENTitle.setSelected(true);
              MovieFATitle = (TextView) view.findViewById(R.id.secondLinedir);
              avetext=(TextView)view.findViewById(R.id.avemovierank) ;
              diricon1 = (ImageView) view.findViewById(R.id.icondir);
@@ -123,14 +125,16 @@ public class moviecustomlist_directors extends RecyclerView.Adapter<moviecustoml
         holder.MovieENTitle.setGravity(Gravity.CENTER);
 
         for (int i = 0; i <MovieList.size() ; i++) {
-            String dirname = MovieData.get(MovieList.get(i).getTitle().trim()).getDirector();
+            ShortPlot movie=MovieData.get(MovieList.get(i).getTitle().trim());
+            if(movie!=null) {
+            String dirname = movie.getDirector();
             if (Dirnames.elementAt(position).equals(dirname)) {
                 String moviename = MovieList.get(i).getTitle().trim();
-                rank+=Double.parseDouble(MovieList.get(i).getImdbRating());
+                rank += Double.parseDouble(MovieList.get(i).getImdbRating());
                 Dirmoviescount++;
                 moviesPICS.addElement(moviename);
+            }
         }
-
         }
         holder.MovieFATitle.setText("تعداد فیلم ها : "+Dirmoviescount);
         holder.avetext.setText(""+String.format("%.1f",rank/Dirmoviescount));

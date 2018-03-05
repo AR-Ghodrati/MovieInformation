@@ -48,7 +48,9 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_marginLeft="70dip"
         android:layout_marginTop="6dip"
-
+      android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
         android:layout_toRightOf="@id/icondir"
         android:gravity="center_vertical"
         android:text="Example application"

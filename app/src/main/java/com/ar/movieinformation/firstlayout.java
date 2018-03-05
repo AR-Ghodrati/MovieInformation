@@ -86,7 +86,7 @@ public class firstlayout extends AppCompatActivity{
                     }.getType();
                     movie_list.MovieData = gson.fromJson(movies.getString("MOVIES", null), type1);
                 }
-                else InCurrectAlertShow();
+                else new ExtractData().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
             catch (Exception e)
             {
@@ -196,7 +196,7 @@ public class firstlayout extends AppCompatActivity{
             AlertDialog.Builder showUpdateNoti = new AlertDialog.Builder(this);
             showUpdateNoti.setCancelable(false);
             showUpdateNoti.setTitle("اطلاعات فیلم");
-            showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اصافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل"+ "\n"+"4-اضافه شدن دریافت پوستر های باکیفیت هر فیلم"+ "\n"+"و برطرف شدن برخی از مشکلات"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
+            showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اضافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل"+ "\n"+"4-اضافه شدن دریافت پوستر های باکیفیت هر فیلم"+ "\n"+"و برطرف شدن برخی از مشکلات"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
                 final String finalVersionsn = versionsn;
                 final int finalVersionsc = versionsc;
                 showUpdateNoti.setPositiveButton("بروز رسانی اطلاعات", (dialog, which) -> {
@@ -222,7 +222,7 @@ public class firstlayout extends AppCompatActivity{
             showUpdateNoti.setCancelable(false);
             showUpdateNoti.setTitle("اطلاعات فیلم");
             if (getstatus.getBoolean("isExtracted", false)) {
-                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اصافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل"+ "\n"+"4-اضافه شدن دریافت پوستر های باکیفیت هر فیلم"+ "\n"+"و برطرف شدن برخی از مشکلات"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
+                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اضافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل"+ "\n"+"4-اضافه شدن دریافت پوستر های باکیفیت هر فیلم"+ "\n"+"و برطرف شدن برخی از مشکلات"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
                 final String finalVersionsn = versionsn;
                 final int finalVersionsc = versionsc;
                 showUpdateNoti.setPositiveButton("بروز رسانی اطلاعات", (dialog, which) -> {
@@ -243,7 +243,7 @@ public class firstlayout extends AppCompatActivity{
                 });
                 showUpdateNoti.show();
             } else {
-                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اصافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل"+ "\n"+"4-اضافه شدن دریافت پوستر های باکیفیت هر فیلم"+ "\n"+"و برطرف شدن برخی از مشکلات"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
+                showUpdateNoti.setMessage("ویژگی های نسخه جدید:" + "\n" + "1-اضافه شدن قابلیت نمایش اطلاعات بیشتر از هر فیلم" + "\n" + "2-اضافه شدن داستان انگلیسی هر فیلم و دریافت ترجمه آن از مترجم گوگل در صورت عدم وجود ترجمه در سایت نقد فارسی" + "\n" + "3-اضافه شدن دریافت نام فارسی فیلم ها از مترجم گوگل"+ "\n"+"4-اضافه شدن دریافت پوستر های باکیفیت هر فیلم"+ "\n"+"و برطرف شدن برخی از مشکلات"+  "\n\n" + "برای اجرای برنامه اطلاعات اولیه کپی می شود");
                 final String finalVersionsn1 = versionsn;
                 final int finalVersionsc1 = versionsc;
 

@@ -82,6 +82,7 @@ public class firstfragmet extends Fragment {
                 } else if (ratings.get(i).getSource().equalsIgnoreCase("Metacritic")) {
                     Meta = true;
                     metaRating.setText(ratings.get(i).getValue());
+                    metaRating.setSelected(true);
                     metaRatingView.setText(movie.getMetascore());
                     if (Integer.parseInt(movie.getMetascore()) > 60)
                         metaRating_background.setBackgroundColor(Color.parseColor("#66cc33"));
