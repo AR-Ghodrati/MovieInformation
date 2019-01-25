@@ -11,11 +11,13 @@ You Can Download It From : https://iranapps.ir/app/com.arstudio.movieinformation
 
 
 # The movie information program is for those who are interested in cinematic films and who always want to know about the latest changes in this field
+
 App Features:       
 
 1-The program with the list update feature gives you the ability to have all updated information.     
 2- The main information of the program is from the website of the IMDB and Naghed farsi from the Persian Review website.          
 3-For each movie, there are 250 premieres, movie poster, movie rating, movie rating, user rating, director's name, year of production, cast, and if there is a film story and awards.         
+
 4-Sorting feature based on year of construction, movie name, movie rating, number of users points.        
 5-In the list of changes, videos that have changed in terms of rating and rating are visible.            
 6-and many other features ...       
