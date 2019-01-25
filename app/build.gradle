@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         resConfig "en"
         applicationId 'com.arstudio.movieinformation'
         minSdkVersion 15
         //noinspection OldTargetApi
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 8
         versionName '2.5.2'
         multiDexEnabled true
